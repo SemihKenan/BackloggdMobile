@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "627889596004",
+    "project_id": "backloggd-mobile",
+    "storage_bucket": "backloggd-mobile.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627889596004:android:203360f0e03749308ce171",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzepGXfIwNNEwnlqup0Z-iXdAE2cT9C5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
