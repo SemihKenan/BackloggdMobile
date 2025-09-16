@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,7 +31,7 @@ fun HomeScreen() {
             .fillMaxSize()
             .padding(),
     ) {
-        val headers = listOf("Popular", "Upcoming", "Popular", "NeBu")
+        val headers = listOf("Popular", "Upcoming", "Popular")
         Column {
             LazyColumn(
                 modifier = Modifier.padding(8.dp),
@@ -40,7 +41,7 @@ fun HomeScreen() {
                 flingBehavior = ScrollableDefaults.flingBehavior(),
                 userScrollEnabled = true
             ) {
-                items(4) { index ->
+                items(headers.size) { index ->
                     Text(text = headers[index], modifier = Modifier, Color.White)
                     LazyRow(
                         Modifier
@@ -56,6 +57,7 @@ fun HomeScreen() {
                         items(10) { index ->
                             Box(
                                 modifier = Modifier
+                                    .border(5.dp,Color.Black)
                                     .size(height = 210.dp, width = 150.dp)
                                     .background(color = Color.DarkGray)
                             ) {

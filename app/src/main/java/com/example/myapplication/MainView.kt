@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,12 +46,13 @@ data class DrawerMenuItem(
 
 val drawerItems = listOf(
     DrawerMenuItem("Ana Sayfa", Icons.Default.Home, "home_route"),
-    DrawerMenuItem("Profil", Icons.Default.Person, "profile_route")
+    DrawerMenuItem("Profile", Icons.Default.Person, "profile_route"),
+    DrawerMenuItem("Settings", Icons.Default.Settings, "settings_route")
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomDrawer(
+fun MainView(
 ) {
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -76,6 +78,7 @@ fun CustomDrawer(
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
 
                 )
+                HorizontalDivider(modifier = Modifier, thickness = 5.dp, color = DividerDefaults.color)
             }
         }
     },
@@ -116,6 +119,7 @@ fun CustomDrawer(
                         {
                             composable("home_route"){HomeScreen()}
                             composable("profile_route"){Profil()}
+                            composable (route="settings_route"){Settings() }
                         }
                     }
 

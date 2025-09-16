@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
-                CustomDrawer()
+                MainView()
             }
         }
     }
@@ -22,6 +22,6 @@ class MainActivity : ComponentActivity() {
 
 @Preview
 @Composable
-private fun Anamenu() {CustomDrawer()
+private fun Anamenu() {MainView()
 
 }
