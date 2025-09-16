@@ -6,10 +6,12 @@ import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -32,32 +34,32 @@ fun HomeScreen() {
             .padding(),
     ) {
         val headers = listOf("Popular", "Upcoming", "Popular")
-        Column {
-            LazyColumn(
-                modifier = Modifier.padding(8.dp),
-                state = rememberLazyListState(),
-                reverseLayout = false,
-                verticalArrangement = Arrangement.spacedBy(20.dp),
-                flingBehavior = ScrollableDefaults.flingBehavior(),
-                userScrollEnabled = true
-            ) {
-                items(headers.size) { index ->
-                    Text(text = headers[index], modifier = Modifier, Color.White)
-                    LazyRow(
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
-                        state = rememberLazyListState(),
-                        reverseLayout = false,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        flingBehavior = ScrollableDefaults.flingBehavior(),
-                        userScrollEnabled = true
-                    ) {
-                        items(10) { index ->
+        LazyColumn(
+            modifier = Modifier.padding(8.dp),
+            state = rememberLazyListState(),
+            reverseLayout = false,
+            verticalArrangement = Arrangement.spacedBy(20.dp),
+            flingBehavior = ScrollableDefaults.flingBehavior(),
+            userScrollEnabled = true
+        ) {
+            items(headers.size) { index ->
+                Text(text = headers[index], modifier = Modifier.padding(start = 3.dp, bottom = 3.dp))
+                LazyRow(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(3.dp),
+                    state = rememberLazyListState(),
+                    reverseLayout = false,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    flingBehavior = ScrollableDefaults.flingBehavior(),
+                    userScrollEnabled = true
+                ) {
+                    items(10) { index ->
+                        Column(modifier = Modifier.wrapContentHeight()) {
                             Box(
                                 modifier = Modifier
-                                    .border(5.dp,Color.Black)
+                                    .border(5.dp, Color.Black)
                                     .size(height = 210.dp, width = 150.dp)
                                     .background(color = Color.DarkGray)
                             ) {
@@ -69,28 +71,25 @@ fun HomeScreen() {
                                     Color.White,
                                     style = MaterialTheme.typography.bodyLarge
                                 )
-                                Text(
-                                    "Game Name $index",
-                                    Modifier
-                                        .align(Alignment.BottomStart)
-                                        .padding(10.dp),
-                                    Color.White
-                                )
-
+                            }
+                            Row(
+                                modifier = Modifier
+                                    .padding(top = 8.dp)
+                            ) {
+                                Text("deneme")
                             }
                         }
-
                     }
+
                 }
             }
         }
-
     }
 }
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    MainView()
 }
 //fun unitCallback() {
 //    val listener: () -> Unit = {

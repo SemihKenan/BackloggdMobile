@@ -45,7 +45,7 @@ data class DrawerMenuItem(
 )
 
 val drawerItems = listOf(
-    DrawerMenuItem("Ana Sayfa", Icons.Default.Home, "home_route"),
+    DrawerMenuItem("Home", Icons.Default.Home, "home_route"),
     DrawerMenuItem("Profile", Icons.Default.Person, "profile_route"),
     DrawerMenuItem("Settings", Icons.Default.Settings, "settings_route")
 )
@@ -88,7 +88,10 @@ fun MainView(
                 containerColor = Color.White,
                 topBar = {
                     TopAppBar(
-                        { Text("Appbar") },
+                        {
+                            val currentItem=drawerItems.find { it.route == currentRoute }
+                            Text(currentItem?.title ?: "Başlık Yok")
+                        },
                         navigationIcon = {
                             IconButton(
                                 onClick = { scope.launch { drawerState.open() } }){
@@ -119,7 +122,7 @@ fun MainView(
                         {
                             composable("home_route"){HomeScreen()}
                             composable("profile_route"){Profil()}
-                            composable (route="settings_route"){Settings() }
+                            composable (route="settings_route"){Settings()}
                         }
                     }
 

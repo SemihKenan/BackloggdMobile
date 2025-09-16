@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.R
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,12 +12,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -80,6 +83,44 @@ fun Profil() {
                 items(count = profileTitles.size)
                 {
                     index ->Text(profileTitles[index])
+                    LazyRow(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        state = rememberLazyListState(),
+                        reverseLayout = false,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        flingBehavior = ScrollableDefaults.flingBehavior(),
+                        userScrollEnabled =true
+                    )
+                    {
+                        items(10) { index ->
+                            Box(
+                                modifier = Modifier
+                                    .border(5.dp,Color.Black)
+                                    .size(height = 210.dp, width = 150.dp)
+                                    .background(color = Color.DarkGray)
+                            ) {
+                                Text(
+                                    "Game_Image $index",
+                                    modifier = Modifier
+                                        .padding(5.dp)
+                                        .align(Alignment.Center),
+                                    Color.White,
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+                                Text(
+                                    "Game Name $index",
+                                    Modifier
+                                        .align(Alignment.BottomStart)
+                                        .padding(10.dp),
+                                    Color.White
+                                )
+
+                            }
+                        }
+                    }
 
 
                 }
