@@ -48,8 +48,6 @@ val bottomNavItems = listOf(
 fun MainView(
 ) {
     val navController = rememberNavController()
-    //val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-   // val scope = rememberCoroutineScope()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination
     Scaffold(
@@ -63,15 +61,16 @@ fun MainView(
                 },
                 navigationIcon = {
                     if (navController.previousBackStackEntry != null && bottomNavItems.none
-                        {it.route == currentRoute?.route})
-                    {
-                    IconButton(
+                        { it.route == currentRoute?.route }
+                    ) {
+                        IconButton(
 
-                        onClick = {navController.popBackStack() } ) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Geri"
-                        )}
+                            onClick = { navController.popBackStack() }) {
+                            Icon(
+                                Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Geri"
+                            )
+                        }
                     }
                 },
                 colors = TopAppBarDefaults
@@ -86,37 +85,38 @@ fun MainView(
         },
         bottomBar = {
             BottomAppBar {
-            bottomNavItems.forEach {screen ->
-                val selected =currentRoute?.route == screen.route || // Doğrudan rota eşleşmesi
-                        currentRoute?.parent?.route == screen.route
-                IconButton(onClick = {
-                    navController.navigate(screen.route){
-                        popUpTo(navController.graph.findStartDestination().id){
-                            saveState=true
-                        }
-                        launchSingleTop =true
-                        restoreState=true
-                    }
-                },
-                    modifier = Modifier.weight(1f, true)
+                bottomNavItems.forEach { screen ->
+                    val selected = currentRoute?.route == screen.route ||
+                            currentRoute?.parent?.route == screen.route
+                    IconButton(
+                        onClick = {
+                            navController.navigate(screen.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                        modifier = Modifier.weight(1f, true)
 
-                )
-                {
-                    Column {
-                        Icon(
-                            imageVector = screen.icon,
-                            contentDescription = screen.title,
-                            tint = if (selected) Color.Red else Color.Gray
-                        )
-                        if (selected) {
-                            Text(text = screen.title)
+                    )
+                    {
+                        Column {
+                            Icon(
+                                imageVector = screen.icon,
+                                contentDescription = screen.title,
+                                tint = if (selected) Color.Red else Color.Gray
+                            )
+                            if (selected) {
+                                Text(text = screen.title)
+                            }
                         }
-                    }
 
+                    }
                 }
             }
-        }
-                    },
+        },
         content = { innerPadding ->
             Column(
                 modifier = Modifier
@@ -143,6 +143,7 @@ fun MainView(
 
     )
 }
+
 @Preview
 @Composable
 private fun MainviewPrev() {
