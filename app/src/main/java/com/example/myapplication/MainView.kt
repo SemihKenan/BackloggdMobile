@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -112,14 +113,18 @@ fun MainView(
                 },
                 content = {
                         innerPadding ->
-                    Column(modifier = Modifier.padding(innerPadding).wrapContentSize()) {
+                    Column(modifier = Modifier
+                        .padding(innerPadding)
+                        .wrapContentSize()) {
                         NavHost(
                             navController = navController,
-                            startDestination = "home_route",
+                            startDestination = "settings_route",
                             contentAlignment = Alignment.Center,
                             modifier = Modifier.wrapContentSize(),
                         )
                         {
+                            composable("game_route") {GamePage()}
+                            composable("settings_route") {Settings()}
                             composable("home_route"){HomeScreen()}
                             composable("profile_route"){Profil()}
                             composable (route="settings_route"){Settings()}
@@ -133,4 +138,10 @@ fun MainView(
             )
         }
     )
+}
+
+@Preview
+@Composable
+private fun MainviewPrev() {
+    MainView()
 }

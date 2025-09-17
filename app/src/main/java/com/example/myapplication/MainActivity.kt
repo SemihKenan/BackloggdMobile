@@ -22,6 +22,6 @@ class MainActivity : ComponentActivity() {
 
 @Preview
 @Composable
-private fun Anamenu() {MainView()
-
+private fun Anamenu() {
+    MainView()
 }
