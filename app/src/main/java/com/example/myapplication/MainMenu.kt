@@ -93,7 +93,7 @@ fun HomeScreen() {
                 }
 if (gameRow.size<numberOfItemsPerRow&&gameRow.isNotEmpty()){
     for (i in gameRow.size until numberOfItemsPerRow)
-        Spacer(Modifier.width(boxWidth)) // Boşlukları aynı genişlikte tut
+        Spacer(Modifier.width(boxWidth))
 }
             }
         }

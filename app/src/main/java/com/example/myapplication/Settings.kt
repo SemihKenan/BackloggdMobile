@@ -17,48 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-
-
-data class SettingItems(
-    val title: String,
-    val route: String? = null
-)
-
-data class SettingSection(
-    val sectionTitle: String,
-    val options: List<SettingItems>
-)
-
-val allSettingSection = listOf(
-    SettingSection(
-        "General",
-        listOf(
-            SettingItems("Notifications","account_route"),
-            SettingItems("Account"),
-            SettingItems("Privacy")
-        )
-
-    ),
-    SettingSection(
-        "Notifications",
-        listOf(
-            SettingItems("Game Notifications"),
-            SettingItems("Social Notifications"),
-            SettingItems("Other Notifications")
-        )
-    ),
-    SettingSection(
-        "Account & Privacy",
-        listOf(
-            SettingItems("Profile Privacy"),
-            SettingItems("Account Info"),
-            SettingItems("Change Password"),
-            SettingItems("Theme"),
-
-            )
-    ),
-
-    )
+import com.example.myapplication.data.allSettingSection
 
 @Composable
 fun Settings(navController: NavController) {

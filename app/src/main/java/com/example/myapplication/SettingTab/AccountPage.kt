@@ -1,4 +1,4 @@
-package com.example.myapplication.Account
+package com.example.myapplication.SettingTab
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
