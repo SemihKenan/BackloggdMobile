@@ -37,13 +37,11 @@ data class BottomNavItem(
     val icon: ImageVector,
     val route: String
 )
-
 val bottomNavItems = listOf(
     BottomNavItem("Profile", Icons.Default.Person, "profile_route"),
     BottomNavItem("Home", Icons.Default.Home, "home_route"),
     BottomNavItem("Settings", Icons.Default.Settings, "settings_route")
 )
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainView(
@@ -65,7 +63,6 @@ fun MainView(
                         { it.route == currentRoute?.route }
                     ) {
                         IconButton(
-
                             onClick = { navController.popBackStack() }) {
                             Icon(
                                 Icons.AutoMirrored.Filled.ArrowBack,
@@ -100,7 +97,6 @@ fun MainView(
                             }
                         },
                         modifier = Modifier.weight(1f, true)
-
                     )
                     {
                         Column {
@@ -113,7 +109,6 @@ fun MainView(
                                 Text(text = screen.title)
                             }
                         }
-
                     }
                 }
             }
@@ -140,11 +135,7 @@ fun MainView(
                     composable("account_route") { AccountPage() }
                 }
             }
-
-
         }
-
-
     )
 }
 
