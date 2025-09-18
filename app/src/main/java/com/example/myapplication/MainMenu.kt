@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -25,50 +28,55 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.myapplication.data.mockGames
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
-    val configuration = LocalConfiguration.current // Ekran yapılandırmasını al
+    val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
     val screenHeight = configuration.screenHeightDp.dp
-    val boxWidth = screenWidth / 3.4f
+    val numberOfItemsPerRow = 3
+    val spacingBetweenItems = 4.dp
+    val lazyRowHorizontalPadding = 8.dp*2
+    val availableWithForRow = screenWidth - lazyRowHorizontalPadding
+    val totalSpacingInRow=spacingBetweenItems*(numberOfItemsPerRow-1)
+    val boxWidth = (availableWithForRow - totalSpacingInRow) / numberOfItemsPerRow
     val boxHeight = screenHeight / 5.4f
-    val headers = listOf("Popular", "Upcoming", "Popular"," ", " ")
+    val gameRows= mockGames.chunked(numberOfItemsPerRow)
     LazyColumn(
-        modifier = Modifier.padding(8.dp),
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxSize(),
         state = rememberLazyListState(),
         reverseLayout = false,
         verticalArrangement = Arrangement.spacedBy(20.dp),
         flingBehavior = ScrollableDefaults.flingBehavior(),
         userScrollEnabled = true
     ) {
-        items(headers.size) { headerIndex ->
-            //Text(text = headers[index], modifier = Modifier.padding(start = 3.dp, bottom = 3.dp))
-            LazyRow(
+        items(gameRows) { gameRow ->
+            Row(
                 Modifier
                     .fillMaxWidth(),
-                    //.padding(3.dp),
-                state = rememberLazyListState(),
-                reverseLayout = false,
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                flingBehavior = ScrollableDefaults.flingBehavior(),
-                userScrollEnabled = false
+                    //.padding(horizontal = 3.dp),
+                horizontalArrangement = Arrangement.spacedBy(spacingBetweenItems),
             ) {
-                items(3) { itemindex ->
+                gameRow.forEach {game ->
                     Column(
-                        modifier = Modifier.wrapContentHeight()
+                        modifier = Modifier
+                            .weight(1f) // EĞER EŞİT DAĞILIM İSTENİYOrsa ve width kullanılmayacaksa
+                            .wrapContentHeight()
+                            //.width(boxWidth)
                     ){
                         Box(
                             modifier = Modifier
-                                .border(3.dp, Color.Black)
-                                .width(boxWidth)
+                                .fillMaxWidth()
                                 .height(boxHeight)
+                                .border(3.dp, Color.Black)
                                 .background(color = Color.DarkGray)
                         ) {
                             Text(
-                                "Game_Image $itemindex",
+                                text = game.title,
                                 modifier = Modifier
                                     .padding(5.dp)
                                     .align(Alignment.Center),
@@ -80,11 +88,15 @@ fun HomeScreen() {
                             modifier = Modifier
                                 .padding(top = 8.dp)
                         ) {
-                            Text("deneme")
+                            Text(text = game.genre)
                         }
                     }
                 }
-
+if (gameRow.size<numberOfItemsPerRow&&gameRow.isNotEmpty()){
+    for (i in gameRow.size until numberOfItemsPerRow) {
+           Spacer(Modifier.width(boxWidth)) // Boşlukları aynı genişlikte tut
+         }
+}
             }
         }
     }
