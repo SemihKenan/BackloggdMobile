@@ -19,41 +19,41 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 
-data class settingItems(
+data class SettingItems(
     val title: String,
     val route: String? = null
 )
 
 data class SettingSection(
     val sectionTitle: String,
-    val options: List<settingItems>
+    val options: List<SettingItems>
 )
 
 val allSettingSection = listOf(
     SettingSection(
         "General",
         listOf(
-            settingItems("Notifications"),
-            settingItems("Account"),
-            settingItems("Privacy")
+            SettingItems("Notifications","account_route"),
+            SettingItems("Account"),
+            SettingItems("Privacy")
         )
 
     ),
     SettingSection(
         "Notifications",
         listOf(
-            settingItems("Game Notifications"),
-            settingItems("Social Notifications"),
-            settingItems("Other Notifications")
+            SettingItems("Game Notifications"),
+            SettingItems("Social Notifications"),
+            SettingItems("Other Notifications")
         )
     ),
     SettingSection(
         "Account & Privacy",
         listOf(
-            settingItems("Profile Privacy"),
-            settingItems("Account Info"),
-            settingItems("Change Password"),
-            settingItems("Theme"),
+            SettingItems("Profile Privacy"),
+            SettingItems("Account Info"),
+            SettingItems("Change Password"),
+            SettingItems("Theme"),
 
             )
     ),

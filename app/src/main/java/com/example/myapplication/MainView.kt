@@ -28,6 +28,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.Account.AccountPage
 import com.example.myapplication.ui.theme.AppbarRenk
 import com.example.myapplication.ui.theme.YaziRenk
 
@@ -38,8 +39,8 @@ data class BottomNavItem(
 )
 
 val bottomNavItems = listOf(
-    BottomNavItem("Home", Icons.Default.Home, "home_route"),
     BottomNavItem("Profile", Icons.Default.Person, "profile_route"),
+    BottomNavItem("Home", Icons.Default.Home, "home_route"),
     BottomNavItem("Settings", Icons.Default.Settings, "settings_route")
 )
 
@@ -117,12 +118,14 @@ fun MainView(
                 }
             }
         },
-        content = { innerPadding ->
+        content =
+            { innerPadding ->
             Column(
                 modifier = Modifier
                     .padding(innerPadding)
                     .wrapContentSize()
-            ) {
+            )
+            {
                 NavHost(
                     navController = navController,
                     startDestination = "home_route",
@@ -134,6 +137,7 @@ fun MainView(
                     composable("settings_route") { Settings(navController) }
                     composable("home_route") { HomeScreen() }
                     composable("profile_route") { Profil() }
+                    composable("account_route") { AccountPage() }
                 }
             }
 
