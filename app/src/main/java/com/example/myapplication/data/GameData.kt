@@ -1,19 +1,16 @@
 package com.example.myapplication.data
 
-import android.graphics.drawable.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.List
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.example.myapplication.HomeScreen
-
 
 
 enum class ProfileFilter {
     Favorites,
-    Recently_Played,
-    All_Activity
+    RecentlyPlayed,
+    AllActivity
 }
 data class FilterButtonData(
     val text: String,
@@ -25,12 +22,12 @@ val profileFilterButtonsDataList: List<FilterButtonData> = listOf(
     FilterButtonData(
         text = "Hepsi",
         icon = Icons.Filled.List, // Gerçek ikonlarınızı kullanın
-        filterType = ProfileFilter.All_Activity
+        filterType = ProfileFilter.AllActivity
     ),
     FilterButtonData(
         text = "Son Oynananlar",
         icon = Icons.Filled.Edit, // Gerçek ikonlarınızı kullanın
-        filterType = ProfileFilter.Recently_Played
+        filterType = ProfileFilter.RecentlyPlayed
     ),
     FilterButtonData(
         text = "Favoriler",

@@ -156,7 +156,7 @@ fun Profil(selectedFilter: ProfileFilter,
 @Preview
 @Composable
 private fun ProfilePrev() {
-    Profil(selectedFilter = ProfileFilter.All_Activity, onFilterSelected = {})
+    Profil(selectedFilter = ProfileFilter.AllActivity, onFilterSelected = {})
 }
 
 /*
