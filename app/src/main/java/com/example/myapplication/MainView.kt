@@ -29,6 +29,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.SettingTab.AccountPage
+import com.example.myapplication.data.ProfileFilter
 import com.example.myapplication.ui.theme.AppbarRenk
 import com.example.myapplication.ui.theme.YaziRenk
 
@@ -131,7 +132,7 @@ fun MainView(
                     composable("game_route") { GamePage() }
                     composable("settings_route") { Settings(navController) }
                     composable("home_route") { HomeScreen() }
-                    composable("profile_route") { Profil() }
+                    composable("profile_route") {Profil(selectedFilter = ProfileFilter.All_Activity, onFilterSelected = { })}
                     composable("account_route") { AccountPage() }
                 }
             }

@@ -27,7 +27,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.data.mockGames
+import com.example.myapplication.data.AllGames
+import com.example.myapplication.data.Game
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,7 +43,7 @@ fun HomeScreen() {
     val totalSpacingInRow=spacingBetweenItems*(numberOfItemsPerRow-1)
     val boxWidth = (availableWithForRow - totalSpacingInRow) / numberOfItemsPerRow
     val boxHeight = screenHeight / 5.4f
-    val gameRows= mockGames.chunked(numberOfItemsPerRow)
+    val gameRows= AllGames.chunked(numberOfItemsPerRow)
     LazyColumn(
         modifier = Modifier
             .padding(8.dp)
@@ -63,7 +64,7 @@ fun HomeScreen() {
                 gameRow.forEach {game ->
                     Column(
                         modifier = Modifier
-                            .weight(1f) // EĞER EŞİT DAĞILIM İSTENİYOrsa ve width kullanılmayacaksa
+                            .weight(1f)
                             .wrapContentHeight()
                             //.width(boxWidth)
                     ){
@@ -75,7 +76,7 @@ fun HomeScreen() {
                                 .background(color = Color.DarkGray)
                         ) {
                             Text(
-                                text = game.title,
+                                text = game.name,
                                 modifier = Modifier
                                     .padding(5.dp)
                                     .align(Alignment.Center),
