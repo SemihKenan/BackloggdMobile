@@ -23,8 +23,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.data.AllGames
@@ -71,16 +73,18 @@ fun HomeScreen() {
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .clip(MaterialTheme.shapes.medium)
                                 .height(boxHeight)
                                 .border(3.dp, Color.Black)
-                                .background(color = Color.DarkGray)
+                                .background(color = MaterialTheme.colorScheme.secondary)
                         ) {
                             Text(
-                                text = game.name,
+                                text = game.genre,
                                 modifier = Modifier
                                     .padding(5.dp)
                                     .align(Alignment.Center),
                                 Color.White,
+                                textAlign = TextAlign.Center,
                                 style = MaterialTheme.typography.bodyLarge
                             )
                         }
@@ -88,7 +92,7 @@ fun HomeScreen() {
                             modifier = Modifier
                                 .padding(top = 8.dp)
                         ) {
-                            Text(text = game.genre)
+                            Text(text = game.name)
                         }
                     }
                 }

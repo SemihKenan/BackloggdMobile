@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
@@ -97,8 +98,7 @@ fun MainView(
                                 restoreState = true
                             }
                         },
-                        modifier = Modifier.weight(1f, true)
-                    )
+                        modifier = Modifier.weight(1f,fill = true))
                     {
                         Column {
                             Icon(
@@ -106,9 +106,6 @@ fun MainView(
                                 contentDescription = screen.title,
                                 tint = if (selected) Color.Red else Color.Gray
                             )
-                            if (selected) {
-                                Text(text = screen.title)
-                            }
                         }
                     }
                 }
