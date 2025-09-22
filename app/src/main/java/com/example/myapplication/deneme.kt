@@ -1,3 +1,4 @@
+/*
 package com.example.myapplication
 
 import androidx.compose.foundation.BorderStroke
@@ -414,3 +415,4 @@ fun ProfileScreenFavoritesPreview() {
     }
 }
 
+*/

@@ -1,54 +1,17 @@
 package com.example.myapplication.data
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.List
-import androidx.compose.ui.graphics.vector.ImageVector
 
 
-enum class ProfileFilter {
-    Favorites,
-    RecentlyPlayed,
-    AllActivity
-}
-data class FilterButtonData(
-    val text: String,
-    val icon: ImageVector,
-    val filterType:ProfileFilter
-)
-val profileFilterButtonsDataList: List<FilterButtonData> = listOf(
-
-    FilterButtonData(
-        text = "Hepsi",
-        icon = Icons.Filled.List, // Gerçek ikonlarınızı kullanın
-        filterType = ProfileFilter.AllActivity
-    ),
-    FilterButtonData(
-        text = "Son Oynananlar",
-        icon = Icons.Filled.Edit, // Gerçek ikonlarınızı kullanın
-        filterType = ProfileFilter.RecentlyPlayed
-    ),
-    FilterButtonData(
-        text = "Favoriler",
-        icon = Icons.Filled.Favorite,
-        filterType = ProfileFilter.Favorites
-    )
-)
 data class Game(
     val id: String,
-    val name: String,
+    //val ownerid: String? = null,
+    val gameName: String,
     val imageUrl: String? = null,
-    val genre: String, // Veya placeholder için Int (Drawable Res ID)
-    val playedDate: String? = null, // Son oynanma için
+    val genre: String,
+    val reviewDate: String?=null,
     val isFavorite: Boolean = false
 )
-data class CommentedGame(
-    val id: String,
-    val gameName: String,
-    val commentText: String,
-    val date: String
-)
+
 val AllGames=listOf(
     Game("g1","CyberPunk",null,"Action","2025-12-07"),
     Game("g2","Batman Arkham Knight",null,"Action","2025-12-07",true),
@@ -60,30 +23,9 @@ val AllGames=listOf(
     Game("g8","Prison Architect",null,"Base Building","2025-12-07",true),
     Game("g9","Satisfactory",null,"Automation"),
     Game("g10","Spider-Man",null,"Action"),
+    Game("g10","Spider-Man",null,"Action"),
 )
 
-val AlreadyCommented=listOf(
-    CommentedGame(
-        id = "c1",
-        gameName = "CyberPunk",
-        commentText = "Great game!",
-        date = "2023-10-25"
-    )
-    ,
-    CommentedGame(
-        id = "c2",
-        gameName = "Satisfactory",
-        commentText = "Amazing graphics.",
-        date = "2023-10-23"
-    )
-    ,
-    CommentedGame(
-        id = "c3",
-        gameName = "Baldur's Gate",
-        commentText = "Great storytelling.",
-        date = "2023-10-22"
-    )
 
-)
 
 

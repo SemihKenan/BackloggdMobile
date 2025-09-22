@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -25,26 +24,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.data.AllGames
+import com.example.myapplication.data.gameRows
+import com.example.myapplication.data.numberOfItemsPerRow
+import com.example.myapplication.data.spacingBetweenItems
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
-    val configuration = LocalConfiguration.current
-    val screenWidth = configuration.screenWidthDp.dp
-    val screenHeight = configuration.screenHeightDp.dp
-    val numberOfItemsPerRow = 3
-    val spacingBetweenItems = 4.dp
-    val lazyRowHorizontalPadding = 8.dp*2
-    val availableWithForRow = screenWidth - lazyRowHorizontalPadding
-    val totalSpacingInRow=spacingBetweenItems*(numberOfItemsPerRow-1)
-    val boxWidth = (availableWithForRow - totalSpacingInRow) / numberOfItemsPerRow
-    val boxHeight = screenHeight / 5.4f
-    val gameRows= AllGames.chunked(numberOfItemsPerRow)
+
     LazyColumn(
         modifier = Modifier
             .padding(8.dp)
@@ -67,13 +57,13 @@ fun HomeScreen() {
                         modifier = Modifier
                             .weight(1f)
                             .wrapContentHeight()
-                            //.width(boxWidth)
                     ){
                         Box(
                             modifier = Modifier
+                                .padding(3.dp)
                                 .fillMaxWidth()
+                                .height(150.dp)
                                 .clip(MaterialTheme.shapes.medium)
-                                .height(boxHeight)
                                 .border(3.dp, Color.Black)
                                 .background(color = MaterialTheme.colorScheme.secondary)
                         ) {
@@ -91,14 +81,13 @@ fun HomeScreen() {
                             modifier = Modifier
                                 .padding(top = 8.dp)
                         ) {
-                            Text(text = game.name)
+                            Text(text = game.gameName)
                         }
                     }
                 }
-if (gameRow.size<numberOfItemsPerRow&&gameRow.isNotEmpty()){
-    for (i in gameRow.size until numberOfItemsPerRow)
-        Spacer(Modifier.width(boxWidth))
-}
+                if (gameRow.size/1 != 3) {
+                    Spacer(modifier = Modifier.weight(1f))
+                }//bir sonraki satırda 1 oyun olunca sıçıyor
             }
         }
     }

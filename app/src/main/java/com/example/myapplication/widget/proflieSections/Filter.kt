@@ -11,10 +11,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.Profil
+import com.example.myapplication.data.ProfileFilter
 
 @Composable
 fun ProfileFilters(
@@ -24,18 +30,18 @@ fun ProfileFilters(
     onClick: () -> Unit
 ) {
     val colors = if (isSelected) {
-        ButtonDefaults.filledTonalButtonColors( // Seçili ise farklı renk
+        ButtonDefaults.filledTonalButtonColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
         )
     } else {
-        ButtonDefaults.outlinedButtonColors( // Seçili değilse outlined
+        ButtonDefaults.outlinedButtonColors(
             contentColor = MaterialTheme.colorScheme.primary
         )
     }
     val border = if (isSelected) null else BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
 
-    Button( // TextButton yerine Button kullandım, daha belirgin olabilir
+    Button(
         onClick = onClick,
         colors = colors,
         border = border,
@@ -45,6 +51,16 @@ fun ProfileFilters(
             modifier = Modifier.size(18.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Text(text, fontSize = 13.sp) // Yazı boyutunu biraz küçülttüm
+        Text(text, fontSize = 13.sp)
     }
+}
+
+@Composable
+fun ProfileScreen(modifier: Modifier = Modifier) {
+    var currentSelectedFilter by remember { mutableStateOf(ProfileFilter.AllActivity) }
+    Profil(
+        selectedFilter = currentSelectedFilter,
+        onFilterSelected = {newFilter -> currentSelectedFilter=newFilter}
+    )
+
 }

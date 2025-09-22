@@ -1,5 +1,14 @@
 package com.example.myapplication.data
 
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.dp
+//geçici süreli
+val numberOfItemsPerRow = 3
+val spacingBetweenItems = 4.dp
+val totalSpacingInRow=spacingBetweenItems*(numberOfItemsPerRow-1)
+val gameRows= AllGames.chunked(numberOfItemsPerRow)
+
+//burada kalacaklar
 data class SettingItems(
     val title: String,
     val route: String? = null
