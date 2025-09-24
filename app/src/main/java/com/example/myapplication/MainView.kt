@@ -28,13 +28,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.Screens.GameItem
+import com.example.myapplication.Screens.GameListScreen
 import com.example.myapplication.Screens.GamePage
 import com.example.myapplication.Screens.HomeScreen
 import com.example.myapplication.Screens.Settings
 import com.example.myapplication.Screens.SettingsTabsScreens.AccountPage
+import com.example.myapplication.data.oyun
 import com.example.myapplication.ui.theme.AppbarRenk
 import com.example.myapplication.ui.theme.YaziRenk
 import com.example.myapplication.widget.proflieSections.ProfileScreen
+import com.google.firebase.firestore.CollectionReference
 
 data class BottomNavItem(
     val title: String,
@@ -128,7 +132,7 @@ fun MainView(
                     modifier = Modifier.wrapContentSize(),
                 )
                 {
-                    composable("game_route") { GamePage() }
+                    composable("game_route") { GameItem() }
                     composable("settings_route") { Settings(navController) }
                     composable("home_route") { HomeScreen() }
                     composable("profile_route") { ProfileScreen()}

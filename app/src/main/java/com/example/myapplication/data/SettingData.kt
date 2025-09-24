@@ -2,10 +2,7 @@ package com.example.myapplication.data
 
 import androidx.compose.ui.unit.dp
 //geçici süreli
-val numberOfItemsPerRow = 3
-val spacingBetweenItems = 4.dp
-val totalSpacingInRow=spacingBetweenItems*(numberOfItemsPerRow-1)
-val gameRows= AllGamesList.chunked(numberOfItemsPerRow)
+
 
 //burada kalacaklar
 data class SettingItems(
@@ -22,7 +19,7 @@ val allSettingSection = listOf(
     SettingSection(
         "General",
         listOf(
-            SettingItems("Notifications","account_route"),
+            SettingItems("Notifications","notifications_route"),
             SettingItems("Account"),
             SettingItems("Privacy")
         )

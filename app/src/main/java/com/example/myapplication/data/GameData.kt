@@ -1,57 +1,59 @@
 package com.example.myapplication.data
 
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.firestore
 
 
-data class Game(
-    val id: String,
+data class GameList(
+    val id: String?=null,
     //val ownerid: String? = null,
     val gameName: String,
     val imageUrl: String? = null,
     val genre: String,
     val reviewDate: String?=null,
-    val isFavorite: Boolean = false
 )
 
 val AllGamesList=listOf(
-    Game("g1","CyberPunk",null,"Action","2025-12-07"),
-    Game("g2","Batman Arkham Knight",null,"Action","2025-12-07",true),
-    Game("g3","Zelda BOTW",null,"Action","2025-12-07",true),
-    Game("g4","Hollow Knight",null,"Souls Like"),
-    Game("g5","Shovel Knight",null,"Souls Like"),
-    Game("g6","Baldur's Gate",null,"RPG"),
-    Game("g7","Elden Ring",null,"Souls Like"),
-    Game("g8","Prison Architect",null,"Base Building","2025-12-07",true),
-    Game("g9","Satisfactory",null,"Automation"),
-    Game("g10","Spider-Man",null,"Action"),
-    Game("g10","Spider-Man",null,"Action"),
+    GameList("","CyberPunk",null,"Action"),
+    GameList("","Batman Arkham Knight",null,"Action"),
+    GameList("","Zelda BOTW",null,"Action"),
+    GameList("","Hollow Knight",null,"Souls Like"),
+    GameList("","Shovel Knight",null,"Souls Like"),
+    GameList("","Baldur's Gate",null,"RPG"),
+    GameList("","Elden Ring",null,"Souls Like"),
+    GameList("","Prison Architect",null, "Strategy"),
+    GameList("","Satisfactory",null,"Automation"),
+    GameList("","Spider-Man",null,"Action"),
+    GameList("","Spider-Man",null,"Action"),
 )
 
 val UserAllGamesList=listOf(
-    Game("g1","CyberPunk",null,"Action","2025-12-07"),
-    Game("g2","Batman Arkham Knight",null,"Action","2025-12-07",true),
-    Game("g3","Zelda BOTW",null,"Action","2025-12-07",true),
-    Game("g4","Hollow Knight",null,"Souls Like"),
-    Game("g5","Shovel Knight",null,"Souls Like"),
-    Game("g6","Baldur's Gate",null,"RPG"),
-    Game("g7","Elden Ring",null,"Souls Like"),
-    Game("g8","Prison Architect",null,"Base Building","2025-12-07",true),
-    Game("g9","Satisfactory",null,"Automation"),
-    Game("g10","Spider-Man",null,"Action"),
-    Game("g10","Spider-Man",null,"Action"),
+    GameList("","CyberPunk",null,"Action"),
+    GameList("","Batman Arkham Knight",null,"Action"),
+    GameList("","Zelda BOTW",null,"Action"),
+    GameList("","Hollow Knight",null,"Souls Like"),
+    GameList("","Shovel Knight",null,"Souls Like"),
+    GameList("","Baldur's Gate",null,"RPG"),
+    GameList("","Elden Ring",null,"Souls Like"),
+    GameList("","Prison Architect",null, "Strategy"),
+    GameList("","Satisfactory",null,"Automation"),
+    GameList("","Spider-Man",null,"Action"),
+    GameList("","Spider-Man",null,"Action"),
 )
 
 val RecentlyPlayedGames=listOf(
-    Game("g1","CyberPunk bu it's recently played",null,"Action","2025-12-07"),
-    Game("g2","Batman Arkham Knight",null,"Action","2025-12-07",true),
-    Game("g3","Zelda BOTW",null,"Action","2025-12-07",true),
-    Game("g4","Hollow Knight",null,"Souls Like"),
-    Game("g5","Shovel Knight",null,"Souls Like"),
-    Game("g6","Baldur's Gate",null,"RPG"),
-    Game("g7","Elden Ring",null,"Souls Like"),
-    Game("g8","Prison Architect",null,"Base Building","2025-12-07",true),
-    Game("g9","Satisfactory",null,"Automation"),
-    Game("g10","Spider-Man",null,"Action"),
-    Game("g10","Spider-Man",null,"Action"),
+    GameList("","CyberPunk bu recently",null,"Action"),
+    GameList("","Batman Arkham Knight",null,"Action"),
+    GameList("","Zelda BOTW",null,"Action"),
+    GameList("","Hollow Knight",null,"Souls Like"),
+    GameList("","Shovel Knight",null,"Souls Like"),
+    GameList("","Baldur's Gate",null,"RPG"),
+    GameList("","Elden Ring",null,"Souls Like"),
+    GameList("","Prison Architect",null, "Strategy"),
+    GameList("","Satisfactory",null,"Automation"),
+    GameList("","Spider-Man",null,"Action"),
+    GameList("","Spider-Man",null,"Action"),
 )
 
 
