@@ -11,24 +11,22 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myapplication.Profil
-import com.example.myapplication.data.ProfileFilter
+import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.Screens.Profil
 
 @Composable
-fun ProfileFilters(
+fun ProfileFilterButton(
     text: String,
     icon: ImageVector,
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
+    val border = if (isSelected) null else BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
     val colors = if (isSelected) {
         ButtonDefaults.filledTonalButtonColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -39,7 +37,6 @@ fun ProfileFilters(
             contentColor = MaterialTheme.colorScheme.primary
         )
     }
-    val border = if (isSelected) null else BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
 
     Button(
         onClick = onClick,
@@ -57,10 +54,14 @@ fun ProfileFilters(
 
 @Composable
 fun ProfileScreen(modifier: Modifier = Modifier) {
-    var currentSelectedFilter by remember { mutableStateOf(ProfileFilter.AllActivity) }
+    val profileNavController = rememberNavController()
     Profil(
-        selectedFilter = currentSelectedFilter,
-        onFilterSelected = {newFilter -> currentSelectedFilter=newFilter}
-    )
+        profileNavController = profileNavController)
 
+}
+
+@Preview
+@Composable
+private fun profil() {
+    ProfileScreen()
 }

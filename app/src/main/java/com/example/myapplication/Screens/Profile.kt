@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.Screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,7 +29,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,21 +40,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.data.AllGames
-import com.example.myapplication.data.Game
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.R
 import com.example.myapplication.data.ProfileFilter
+import com.example.myapplication.data.RecentlyPlayedGames
+import com.example.myapplication.data.UserAllGamesList
 import com.example.myapplication.data.activeUser
 import com.example.myapplication.data.playedGames
 import com.example.myapplication.data.profileFilterButtonsDataList
-import com.example.myapplication.widget.proflieSections.ProfileFilters
-
+import com.example.myapplication.widget.proflieSections.ProfileFilterButton
+import kotlin.collections.chunked
+const val userGamePerRow=2
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Profil(
-    selectedFilter: ProfileFilter,
-    onFilterSelected: (ProfileFilter) -> Unit)
+    profileNavController: NavHostController
+    )
     {
 
     Column(
@@ -142,87 +144,81 @@ fun Profil(
             }
 
         }
+        var currentSelectedFilter by remember { mutableStateOf(ProfileFilter.AllGames) }
+        val profileNavController = rememberNavController()
         //Filter Buttons
         Row(Modifier
             .fillMaxWidth()
             .padding(),
             horizontalArrangement = Arrangement.SpaceEvenly) {
             profileFilterButtonsDataList.forEach {buttonData ->
-                var currentSelectedFilter by remember { mutableStateOf(ProfileFilter.AllActivity) }
-                ProfileFilters(
+
+                ProfileFilterButton(
                     text = buttonData.text,
                     icon = buttonData.icon,
-                    isSelected = selectedFilter==buttonData.filterType,
-                    onClick = {onFilterSelected(buttonData.filterType)
+                    isSelected = currentSelectedFilter==buttonData.filterType,
+                    onClick = {
+                        currentSelectedFilter = buttonData.filterType
+
                     }
                 )
             }
         }
-        //Played Game List
+        val gamesList = when (currentSelectedFilter) {
+            ProfileFilter.AllGames -> {
+                UserAllGamesList
+            }
+            ProfileFilter.Favorites -> {
+                UserAllGamesList
+            }
+            ProfileFilter.RecentlyPlayed -> {
+                RecentlyPlayedGames
+            }
+        }
+        val playedGameInRow = gamesList.chunked(userGamePerRow)
+        LazyColumn(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxSize(),
+            state = rememberLazyListState(),
+            reverseLayout = false,
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            flingBehavior = ScrollableDefaults.flingBehavior(),
+            userScrollEnabled = true
+        )
+        {
+            items(playedGameInRow) { profileGameItem ->
+                Row(
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    profileGameItem.forEach { profileGame ->
+
+                        Column(
+                            modifier = Modifier
+                                .weight(1f)
+                                .wrapContentHeight()
+                        )
+                        {
+                            Box(modifier = Modifier
+                                .fillMaxWidth()
+                                .height(150.dp)
+                                .border(3.dp, Color.Black)
+                                .background(color = MaterialTheme.colorScheme.secondary)
+                            )
+                            Text(text = profileGame.gameName)
+                        }
+                        if (profileGameItem.size%2 != 0){
+                            Spacer(modifier = Modifier.weight(1f))
+                        }
+
+                    }
+                }
+            }
+        }
 
     }
 }
 
-@Preview
-@Composable
-private fun ProfilePrev() {
-    Profil(selectedFilter = ProfileFilter.AllActivity, onFilterSelected = {})
-}
 
-/*
-Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                Button(
-                    onClick = {
 
-                    }
-                )
-                {
-                    Text("Recent")
-                }
-                Text(
-                    "Favorite"
-                )
-            }
-            }
-                items(count = profileTitles.size)
-                {
-                    index ->Text(profileTitles[index])
-                    LazyRow(
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
-                        state = rememberLazyListState(),
-                        reverseLayout = false,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        flingBehavior = ScrollableDefaults.flingBehavior(),
-                        userScrollEnabled =true
-                    )
-                    {
-                        items(10) { index ->
-                            Box(
-                                modifier = Modifier
-                                    .border(5.dp,Color.Black)
-                                    .size(height = 210.dp, width = 150.dp)
-                                    .background(color = Color.DarkGray)
-                            ) {
-                                Text(
-                                    "Game_Image $index",
-                                    modifier = Modifier
-                                        .padding(5.dp)
-                                        .align(Alignment.Center),
-                                    Color.White,
-                                    style = MaterialTheme.typography.bodyLarge
-                                )
-                                Text(
-                                    "Game Name $index",
-                                    Modifier
-                                        .align(Alignment.BottomStart)
-                                        .padding(10.dp),
-                                    Color.White
-                                )
-
-                            }
-                        }
-                    }
- */

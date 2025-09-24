@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.widget
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search

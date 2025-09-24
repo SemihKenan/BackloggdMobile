@@ -28,14 +28,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.myapplication.SettingTab.AccountPage
-import com.example.myapplication.data.ProfileFilter
-import com.example.myapplication.profileScreens.FilterAllGames
-import com.example.myapplication.profileScreens.FilterFavorites
-import com.example.myapplication.profileScreens.FilterRecentlyPlayed
+import com.example.myapplication.Screens.GamePage
+import com.example.myapplication.Screens.HomeScreen
+import com.example.myapplication.Screens.Settings
+import com.example.myapplication.Screens.SettingsTabsScreens.AccountPage
 import com.example.myapplication.ui.theme.AppbarRenk
 import com.example.myapplication.ui.theme.YaziRenk
-import com.example.myapplication.widget.proflieSections.ProfileFilters
 import com.example.myapplication.widget.proflieSections.ProfileScreen
 
 data class BottomNavItem(
@@ -134,9 +132,6 @@ fun MainView(
                     composable("settings_route") { Settings(navController) }
                     composable("home_route") { HomeScreen() }
                     composable("profile_route") { ProfileScreen()}
-                    composable("All_Games") { FilterAllGames() }
-                    composable("Recently_Played") { FilterRecentlyPlayed() }
-                    composable("Favorites") { FilterFavorites() }
                     composable("account_route") { AccountPage() }
                 }
             }

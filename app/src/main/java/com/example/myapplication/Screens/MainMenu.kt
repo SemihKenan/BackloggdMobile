@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.Screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,8 +27,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.myapplication.MainView
 import com.example.myapplication.data.gameRows
-import com.example.myapplication.data.numberOfItemsPerRow
 import com.example.myapplication.data.spacingBetweenItems
 
 @OptIn(ExperimentalMaterial3Api::class)

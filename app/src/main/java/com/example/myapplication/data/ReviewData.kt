@@ -10,7 +10,7 @@ data class CommentedGame(
     val date: String
 )
 
-fun ReviewDate(gameName: String): String? {return AllGames.find { it.gameName == gameName }?.reviewDate}
+fun ReviewDate(gameName: String): String? {return AllGamesList.find { it.gameName == gameName }?.reviewDate}
 
 
 val AlreadyCommented=listOf<CommentedGame>(

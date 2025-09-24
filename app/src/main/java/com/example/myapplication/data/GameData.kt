@@ -12,8 +12,36 @@ data class Game(
     val isFavorite: Boolean = false
 )
 
-val AllGames=listOf(
+val AllGamesList=listOf(
     Game("g1","CyberPunk",null,"Action","2025-12-07"),
+    Game("g2","Batman Arkham Knight",null,"Action","2025-12-07",true),
+    Game("g3","Zelda BOTW",null,"Action","2025-12-07",true),
+    Game("g4","Hollow Knight",null,"Souls Like"),
+    Game("g5","Shovel Knight",null,"Souls Like"),
+    Game("g6","Baldur's Gate",null,"RPG"),
+    Game("g7","Elden Ring",null,"Souls Like"),
+    Game("g8","Prison Architect",null,"Base Building","2025-12-07",true),
+    Game("g9","Satisfactory",null,"Automation"),
+    Game("g10","Spider-Man",null,"Action"),
+    Game("g10","Spider-Man",null,"Action"),
+)
+
+val UserAllGamesList=listOf(
+    Game("g1","CyberPunk",null,"Action","2025-12-07"),
+    Game("g2","Batman Arkham Knight",null,"Action","2025-12-07",true),
+    Game("g3","Zelda BOTW",null,"Action","2025-12-07",true),
+    Game("g4","Hollow Knight",null,"Souls Like"),
+    Game("g5","Shovel Knight",null,"Souls Like"),
+    Game("g6","Baldur's Gate",null,"RPG"),
+    Game("g7","Elden Ring",null,"Souls Like"),
+    Game("g8","Prison Architect",null,"Base Building","2025-12-07",true),
+    Game("g9","Satisfactory",null,"Automation"),
+    Game("g10","Spider-Man",null,"Action"),
+    Game("g10","Spider-Man",null,"Action"),
+)
+
+val RecentlyPlayedGames=listOf(
+    Game("g1","CyberPunk bu it's recently played",null,"Action","2025-12-07"),
     Game("g2","Batman Arkham Knight",null,"Action","2025-12-07",true),
     Game("g3","Zelda BOTW",null,"Action","2025-12-07",true),
     Game("g4","Hollow Knight",null,"Souls Like"),
