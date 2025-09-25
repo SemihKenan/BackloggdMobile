@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -26,78 +25,116 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.MainView
+import com.example.myapplication.data.GameDataModel
 import com.example.myapplication.data.GameRepository
-import com.example.myapplication.data.oyun
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(repository: GameRepository = GameRepository()) {
-    var games by remember { mutableStateOf<List<oyun>>(emptyList()) }
+    var games by remember { mutableStateOf<List<GameDataModel>>(emptyList()) }
 
     LaunchedEffect(Unit) {
         repository.getGames { fetchedGames ->
             games = fetchedGames
         }
     }
+    val playedGameInRow = games.chunked(userGamePerRow)
     LazyColumn(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxSize(),
         state = rememberLazyListState(),
         reverseLayout = false,
-        verticalArrangement = Arrangement.spacedBy(20.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
         flingBehavior = ScrollableDefaults.flingBehavior(),
         userScrollEnabled = true
-    ) {
-        items(games) { gamelist ->
+    )
+    {
+        items(playedGameInRow) { profileGameItem ->
             Row(
-                Modifier
-                    .fillMaxWidth(),
-                //.padding(horizontal = 3.dp),
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .wrapContentHeight()
-                ) {
-                    Box(
+                profileGameItem.forEach { profileGame ->
+
+                    Column(
                         modifier = Modifier
-                            .padding(3.dp)
+                            .weight(1f)
+                            .wrapContentHeight()
+                    )
+                    {
+                        Box(modifier = Modifier
                             .fillMaxWidth()
                             .height(150.dp)
-                            .clip(MaterialTheme.shapes.medium)
                             .border(3.dp, Color.Black)
                             .background(color = MaterialTheme.colorScheme.secondary)
-                    ) {
-                        Text(
-                            text = gamelist.gameName,
-                            modifier = Modifier
-                                .padding(5.dp)
-                                .align(Alignment.Center),
-                            Color.White,
-                            textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.bodyLarge
                         )
+                        Text(text = profileGame.gameName)
                     }
-                    Row(
-                        modifier = Modifier
-                            .padding(top = 8.dp)
-                    ) {
-                        Text(text = gamelist.gameName)
+                    if (profileGameItem.size%2 != 0){
+                        Spacer(modifier = Modifier.weight(1f))
                     }
+
                 }
             }
         }
     }
+//    LazyColumn(
+//        modifier = Modifier
+//            .padding(8.dp)
+//            .fillMaxSize(),
+//        state = rememberLazyListState(),
+//        reverseLayout = false,
+//        verticalArrangement = Arrangement.spacedBy(20.dp),
+//        flingBehavior = ScrollableDefaults.flingBehavior(),
+//        userScrollEnabled = true
+//    ) {
+//        items(playedGameInRow) { gamelist ->
+//            Row(
+//                Modifier
+//                    .fillMaxWidth(),
+//                //.padding(horizontal = 3.dp),
+//                horizontalArrangement = Arrangement.spacedBy(4.dp),
+//            ) {
+//                Column(
+//                    modifier = Modifier
+//                        .weight(1f)
+//                        .wrapContentHeight()
+//                ) {
+//                    Box(
+//                        modifier = Modifier
+//                            .padding(3.dp)
+//                            .fillMaxWidth()
+//                            .height(150.dp)
+//                            .clip(MaterialTheme.shapes.medium)
+//                            .border(3.dp, Color.Black)
+//                            .background(color = MaterialTheme.colorScheme.secondary)
+//                    ) {
+//                        Text(
+//                            text = gamelist.gameName,
+//                            modifier = Modifier
+//                                .padding(5.dp)
+//                                .align(Alignment.Center),
+//                            Color.White,
+//                            textAlign = TextAlign.Center,
+//                            style = MaterialTheme.typography.bodyLarge
+//                        )
+//                    }
+//                    Row(
+//                        modifier = Modifier
+//                            .padding(top = 8.dp)
+//                    ) {
+//                        Text(text = gamelist.gameName)
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 @Preview

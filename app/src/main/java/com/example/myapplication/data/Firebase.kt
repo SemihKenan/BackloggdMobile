@@ -2,50 +2,52 @@ package com.example.myapplication.data
 
 import com.google.firebase.firestore.FirebaseFirestore
 
-data class oyun(
-    val ID: String = "",
-    val gameName: String = "",
-    val Genre: String = "",
-)
 
 class GameRepository {
     private val db = FirebaseFirestore.getInstance()
+    private val gameCollection = db.collection("GameList")
 
-    fun getGames(onResult: (List<oyun>) -> Unit) {
-        db.collection("GameList")
+    fun getGames(onResult: (List<GameDataModel>) -> Unit) {
+        gameCollection
             .get()
             .addOnSuccessListener { result ->
-                val oyunlar = result.toObjects(oyun::class.java)
+                val oyunlar = result.toObjects(GameDataModel::class.java)
                 onResult(oyunlar)
             }
             .addOnFailureListener {
                 onResult(emptyList())
             }
     }
-}
-/* @Composable
-fun GameItem(repository: GameRepository = GameRepository()) {
-    var games by remember { mutableStateOf<List<oyun>>(emptyList()) }
-
-    LaunchedEffect(Unit) {
-        repository.getGames { fetchedGames ->
-            games = fetchedGames
-        }
+    fun pushGames(onResult: (List<GameDataModel>),onComplete: (Boolean) -> Unit){
+            AllGamesList.forEach { dbGame ->
+                gameCollection
+                    .document(dbGame.gameName)
+                    .set(dbGame)
+                    .addOnSuccessListener { onComplete(true) }
+                    .addOnFailureListener { onComplete(false) }
+            }
     }
+    fun removeDuplicates(onComplete:(Boolean)-> Unit) {
+        gameCollection
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val seenIds = mutableSetOf<String>()
+                val batch = db.batch()
 
-    LazyColumn {
-        items(games) { game ->
-            GameListScreen(game)
-        }
+                snapshot.documents.forEach { doc ->
+                    val samegame = doc.toObject(GameDataModel::class.java)
+                    if (samegame != null) {
+                        if (seenIds.contains(samegame.gameName)) {
+                            // duplicate -> sil
+                            doc.reference.delete()
+                        } else {
+                            seenIds.add(samegame.gameName)
+                        }
+                    }
+                }
+                batch.commit()
+                    .addOnSuccessListener { onComplete(true) }
+                    .addOnFailureListener { onComplete(false) }
+            }
     }
 }
-
-@Composable
-fun GameListScreen(game:oyun) {
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text(text = game.gameName, style = MaterialTheme.typography.titleMedium)
-        Text(text = game.Genre, style = MaterialTheme.typography.bodyMedium)
-    }
-}
-*/
- 
