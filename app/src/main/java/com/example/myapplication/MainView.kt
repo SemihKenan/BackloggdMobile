@@ -27,12 +27,12 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.Screens.GamePage
 import com.example.myapplication.Screens.HomeScreen
 import com.example.myapplication.Screens.HomeScreentest
+import com.example.myapplication.Screens.Profil
 import com.example.myapplication.Screens.Settings
 import com.example.myapplication.Screens.SettingsTabsScreens.AccountPage
 import com.example.myapplication.data.bottomNavItems
 import com.example.myapplication.ui.theme.AppbarRenk
 import com.example.myapplication.ui.theme.YaziRenk
-import com.example.myapplication.widget.proflieSections.ProfileScreen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -121,7 +121,7 @@ fun MainView(
                     composable("settings_route") { Settings(navController) }
                     composable("home_route") { HomeScreen() }
                     composable("test_route") { HomeScreentest() }
-                    composable("profile_route") { ProfileScreen()}
+                    composable("profile_route") { Profil() }
                     composable("account_route") { AccountPage() }
                 }
             }

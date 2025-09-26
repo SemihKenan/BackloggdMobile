@@ -52,16 +52,8 @@ fun ProfileFilterButton(
     }
 }
 
-@Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
-    val profileNavController = rememberNavController()
-    Profil(
-        profileNavController = profileNavController)
-
-}
-
 @Preview
 @Composable
 private fun profil() {
-    ProfileScreen()
+    Profil()
 }

@@ -41,8 +41,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
 import com.example.myapplication.data.ProfileFilter
 import com.example.myapplication.data.RecentlyPlayedGames
@@ -51,15 +49,12 @@ import com.example.myapplication.data.activeUser
 import com.example.myapplication.data.playedGames
 import com.example.myapplication.data.profileFilterButtonsDataList
 import com.example.myapplication.widget.proflieSections.ProfileFilterButton
-import kotlin.collections.chunked
+
 const val userGamePerRow=2
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Profil(
-    profileNavController: NavHostController
-    )
-    {
-
+fun Profil()
+{
     Column(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
@@ -145,7 +140,7 @@ fun Profil(
 
         }
         var currentSelectedFilter by remember { mutableStateOf(ProfileFilter.AllGames) }
-        val profileNavController = rememberNavController()
+        //val profileNavController = rememberNavController()
         //Filter Buttons
         Row(Modifier
             .fillMaxWidth()

@@ -7,10 +7,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -34,7 +32,7 @@ import com.example.myapplication.VM.GetGames
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreentest(viewModel: GetGames = viewModel()) {
-    val mockgames by viewModel.games
+    val mockgames by viewModel.games.collectAsState()
     Column(modifier = Modifier) {
         LazyRow(
         modifier = Modifier

@@ -2,7 +2,7 @@ package com.example.myapplication.data
 
 data class ProfileHeaders(
     val profileOwnerId: String?=null,
-    val profileUsername: String,
+    val profileUsername: String = "",
     val profileImage: String?=null,
     val profileGamesPlayed: List<String> = emptyList(),
     val profileReviewedGames: String?=null
