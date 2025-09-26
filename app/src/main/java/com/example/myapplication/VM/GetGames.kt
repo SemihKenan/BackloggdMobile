@@ -1,16 +1,17 @@
 package com.example.myapplication.VM
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.GameDataModel
 import com.example.myapplication.data.GameRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+
 
 class GetGames: ViewModel() {
     
     private val repo = GameRepository()
-    private val _games = MutableStateFlow<List<GameDataModel>>(emptyList())
-    val games: StateFlow<List<GameDataModel>> =_games
+    private val _games = mutableStateOf<List<GameDataModel>>(emptyList())
+    val games: State<List<GameDataModel>> =_games
     init {
         loadGames()
     }
@@ -30,4 +31,8 @@ class GetGames: ViewModel() {
             loadGames()
         }
         }
+    fun clean(){
+        repo.clearGameListCollection { success->
+            loadGames() }
     }
+}

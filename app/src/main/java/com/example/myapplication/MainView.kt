@@ -5,9 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -21,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -29,23 +25,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.Screens.GamePage
+import com.example.myapplication.Screens.HomeScreen
 import com.example.myapplication.Screens.HomeScreentest
 import com.example.myapplication.Screens.Settings
 import com.example.myapplication.Screens.SettingsTabsScreens.AccountPage
+import com.example.myapplication.data.bottomNavItems
 import com.example.myapplication.ui.theme.AppbarRenk
 import com.example.myapplication.ui.theme.YaziRenk
 import com.example.myapplication.widget.proflieSections.ProfileScreen
 
-data class BottomNavItem(
-    val title: String,
-    val icon: ImageVector,
-    val route: String
-)
-val bottomNavItems = listOf(
-    BottomNavItem("Profile", Icons.Default.Person, "profile_route"),
-    BottomNavItem("Home", Icons.Default.Home, "home_route"),
-    BottomNavItem("Settings", Icons.Default.Settings, "settings_route")
-)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainView(
@@ -84,8 +73,7 @@ fun MainView(
 
                 modifier = Modifier
             )
-        }
-        ,
+        },
         bottomBar = {
             BottomAppBar {
                 bottomNavItems.forEach { screen ->
@@ -124,14 +112,15 @@ fun MainView(
             {
                 NavHost(
                     navController = navController,
-                    startDestination = "home_route",
+                    startDestination = "test_route",
                     contentAlignment = Alignment.Center,
                     modifier = Modifier.wrapContentSize(),
                 )
                 {
                     composable("game_route") { GamePage() }
                     composable("settings_route") { Settings(navController) }
-                    composable("home_route") { HomeScreentest() }
+                    composable("home_route") { HomeScreen() }
+                    composable("test_route") { HomeScreentest() }
                     composable("profile_route") { ProfileScreen()}
                     composable("account_route") { AccountPage() }
                 }
