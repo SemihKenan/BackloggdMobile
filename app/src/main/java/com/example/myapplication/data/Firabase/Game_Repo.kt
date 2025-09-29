@@ -1,5 +1,7 @@
-package com.example.myapplication.data
+package com.example.myapplication.data.Firabase
 
+import com.example.myapplication.data.AllGamesList
+import com.example.myapplication.data.GameDataModel
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -28,7 +30,6 @@ class GameRepository {
                 .addOnFailureListener { onComplete(false) }
         }
     }
-
     fun removeDuplicates(onComplete: (Boolean) -> Unit) {
         gameCollection
             .get()
@@ -65,3 +66,4 @@ class GameRepository {
             .addOnFailureListener { onComplete(false) }
     }
 }
+

@@ -1,10 +1,4 @@
 package com.example.myapplication.data
-
-import androidx.compose.ui.unit.dp
-//geçici süreli
-
-
-//burada kalacaklar
 data class SettingItems(
     val title: String,
     val route: String? = null

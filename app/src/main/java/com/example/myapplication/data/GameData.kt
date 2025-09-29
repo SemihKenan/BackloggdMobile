@@ -1,6 +1,5 @@
 package com.example.myapplication.data
 
-
 data class GameDataModel(
     val id: String = "",
     val ownerid: List<String> = emptyList(),
@@ -9,6 +8,7 @@ data class GameDataModel(
     val genre: String = "",
     val reviewDate: String?=null,
 )
+
 //val playedGames: Int = activeUser.profileOwnerId.size
 val AllGamesList=listOf(
     GameDataModel("1",listOf("p1","p2"),"CyberPunk",null,"Action"),
@@ -50,5 +50,14 @@ val RecentlyPlayedGames=listOf(
 )
 
 
+data class CustomGameData(
+    val ownerId: String? = null,
+    val gamedata: GameDataModel? = null
+)
+val userItems = listOf(
+    CustomGameData(
+        "p1",
 
+        )
+)
 

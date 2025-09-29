@@ -29,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,20 +42,22 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
+import com.example.myapplication.VM.User_VM
 import com.example.myapplication.data.ProfileFilter
 import com.example.myapplication.data.RecentlyPlayedGames
 import com.example.myapplication.data.UserAllGamesList
-import com.example.myapplication.data.activeUser
-import com.example.myapplication.data.playedGames
 import com.example.myapplication.data.profileFilterButtonsDataList
 import com.example.myapplication.widget.proflieSections.ProfileFilterButton
 
 const val userGamePerRow=2
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Profil()
+fun Profil(userVm: User_VM= viewModel())
 {
+    val userList by userVm.users.collectAsState()
+    val activeUser = userList.getOrNull(0)
     Column(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
@@ -72,8 +75,7 @@ fun Profil()
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         )
-
-        {
+        {if (activeUser!=null) {
             if (activeUser.profileImage != null) {
                 Image(
                     painter = painterResource(R.drawable.ic_launcher_background),
@@ -84,8 +86,7 @@ fun Profil()
                         .border(2.dp, MaterialTheme.colorScheme.secondaryContainer),
                     contentScale = ContentScale.Crop
                 )
-            } else
-            {
+            } else {
                 Icon(
                     imageVector = Icons.Default.Person,
                     contentDescription = "Profil Resmi",
@@ -96,6 +97,7 @@ fun Profil()
                         .padding(16.dp),
                 )
             }
+        }else{Text("Kullanıcı yok")}
             Spacer(modifier = Modifier.width(16.dp))
 
             //User Info
@@ -103,11 +105,14 @@ fun Profil()
                 modifier = Modifier.weight(1f)
             )
             {
-                Text(
-                  text = activeUser.profileUsername,
-                  style = MaterialTheme.typography.headlineSmall,
-                  color = MaterialTheme.colorScheme.onSurfaceVariant,
-                  fontWeight = FontWeight.Bold)
+                if (activeUser!=null){
+                    Text(
+                        text = activeUser.profilename,
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontWeight = FontWeight.Bold
+                    )
+                }else{Text("Kullanıcı bulunamadı")}
                 Spacer(modifier = Modifier.width(8.dp))
                 Row(verticalAlignment =Alignment.CenterVertically ) {
                     Spacer(
@@ -121,26 +126,36 @@ fun Profil()
                         tint = MaterialTheme.colorScheme.primary
                     )
                     Spacer(Modifier.width(4.dp))
-                    Text(
-                        "Oynanan Oyunlar: $playedGames",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    if (activeUser!=null) {
+                        Text(
+                            text = "Oynanan oyunlar: ${activeUser.profileGamesPlayed}",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    else{
+                        Text("kullanıcı bulunamadı")
+                    }
                 }
                 Spacer(modifier = Modifier.height(4.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.Outlined.Create, contentDescription = "Yapılan Yorumlar", tint = MaterialTheme.colorScheme.secondary)
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "Yorum Sayısı: ${activeUser.profileReviewedGames}",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    if (activeUser!=null) {
+                        Text(
+                            text = "Yorum Sayısı: ${activeUser.profileReviewedGames}",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    else{
+                        Text("kullanıcı bulunamadı")
+                    }
                 }
             }
 
         }
         var currentSelectedFilter by remember { mutableStateOf(ProfileFilter.AllGames) }
-        //val profileNavController = rememberNavController()
         //Filter Buttons
         Row(Modifier
             .fillMaxWidth()

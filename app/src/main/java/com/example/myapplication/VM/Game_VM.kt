@@ -1,15 +1,13 @@
 package com.example.myapplication.VM
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.GameDataModel
-import com.example.myapplication.data.GameRepository
+import com.example.myapplication.data.Firabase.GameRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 
-class GetGames: ViewModel() {
+class Game_VM: ViewModel() {
     
     private val repo = GameRepository()
     private val _games = MutableStateFlow<List<GameDataModel>>(emptyList())
