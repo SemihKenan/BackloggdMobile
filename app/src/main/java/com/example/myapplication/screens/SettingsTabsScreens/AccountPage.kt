@@ -1,4 +1,4 @@
-package com.example.myapplication.Screens.SettingsTabsScreens
+package com.example.myapplication.screens.SettingsTabsScreens
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

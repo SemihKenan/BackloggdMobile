@@ -1,4 +1,4 @@
-package com.example.myapplication.Screens
+package com.example.myapplication.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,20 +25,27 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.VM.Game_VM
-import com.example.myapplication.VM.User_VM
+import com.example.myapplication.VM.user_VM
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     gameVM: Game_VM = viewModel(),
-    userVM: User_VM= viewModel()
+    userVM: user_VM= viewModel()
 ) {
-    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
-    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+    val windowInfo = LocalWindowInfo.current
+    val screenSize = windowInfo.containerSize
+    val screenWidthPx = screenSize.width
+    val screenHeightPx = screenSize.height
+    val density = LocalDensity.current
+    val screenWidthDp = with(density){screenWidthPx.toDp()}
+    val screenHeightDp = with(density){screenHeightPx.toDp()}
     val mockgames by gameVM.games.collectAsState()
     val mockUsers by userVM.users.collectAsState()
     Column(modifier = Modifier) {
@@ -54,20 +61,20 @@ fun HomeScreen(
         flingBehavior = ScrollableDefaults.flingBehavior(),
         userScrollEnabled = true
         ){
-            items(mockgames) { profileGameItem ->
+            items(mockgames) { GameItems ->
                 Column(
                     modifier = Modifier
                         //.weight(1f)
                     ){
                         Box(modifier = Modifier
-                            .height(screenHeight/3)
-                            .width(screenWidth/2)
+                            .height(screenHeightDp/4)
+                            .width(screenWidthDp/2)
                             .border(3.dp, Color.Black)
                             .background(color = MaterialTheme.colorScheme.secondary)
                         )
                         Text(
                             modifier = Modifier.padding(start = 12.dp),
-                            text = profileGameItem.gameName)
+                            text = GameItems.gameName)
                     }
             }
         }

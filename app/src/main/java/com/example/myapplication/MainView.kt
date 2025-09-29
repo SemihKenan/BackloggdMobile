@@ -24,11 +24,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.myapplication.Screens.GamePage
-import com.example.myapplication.Screens.HomeScreen
-import com.example.myapplication.Screens.Profil
-import com.example.myapplication.Screens.Settings
-import com.example.myapplication.Screens.SettingsTabsScreens.AccountPage
+import com.example.myapplication.screens.GamePage
+import com.example.myapplication.screens.HomeScreen
+import com.example.myapplication.screens.Profil
+import com.example.myapplication.screens.Settings
+import com.example.myapplication.screens.SettingsTabsScreens.AccountPage
 import com.example.myapplication.data.bottomNavItems
 import com.example.myapplication.ui.theme.AppbarRenk
 import com.example.myapplication.ui.theme.YaziRenk
