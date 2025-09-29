@@ -30,6 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.VM.Game_VM
 import com.example.myapplication.VM.user_VM
+import com.example.myapplication.data.AllButtonList
+import com.example.myapplication.data.mainMenuButtons
+import kotlin.collections.chunked
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,7 +65,6 @@ fun HomeScreen(
             items(mockgames) { GameItems ->
                 Column(
                     modifier = Modifier
-                        //.weight(1f)
                     ){
                         Box(modifier = Modifier
                             .height(screenHeightDp/4)
@@ -76,50 +78,58 @@ fun HomeScreen(
                     }
             }
         }
-        Row(Modifier
+    }
+    Column {
+        AllButtonList.forEach { Buttonitem->
+            Row(modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
-            Arrangement.spacedBy(6.dp)
-        )
-        {
-            Button(
-                modifier = Modifier
-                    .weight(1f),
-                onClick = {
-                    gameVM.uploadMockData(mockgames)
-                }
-            ) {
-                Text("oyun upload et")
-            }
-            Button(
-                modifier = Modifier
-                        .weight(1f),
-                onClick = {
-                    gameVM.clean()
-                }
-            ) {
-                Text("sil")
-            }
-        }
-        Row(Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
-            Arrangement.spacedBy(6.dp)
-        )
-        {
-            Button(
-                modifier = Modifier
-                    .weight(1f),
-                onClick = {
-                    userVM.uploadUsers(mockUsers = mockUsers)
-                }
-            ) {
-                Text("user upload et")
+            Arrangement.spacedBy(6.dp)) {
+                Text(Buttonitem.Text)
             }
         }
     }
-
 }
 
 
-
+//Row(Modifier
+//            .fillMaxWidth()
+//            .padding(10.dp),
+//            Arrangement.spacedBy(6.dp)
+//        )
+//        {
+//            Button(
+//                modifier = Modifier
+//                    .weight(1f),
+//                onClick = {
+//                    gameVM.uploadMockData(mockgames)
+//                }
+//            ) {
+//                Text("oyun upload et")
+//            }
+//            Button(
+//                modifier = Modifier
+//                        .weight(1f),
+//                onClick = {
+//                    gameVM.clean()
+//                }
+//            ) {
+//                Text("sil")
+//            }
+//        }
+//        Row(Modifier
+//            .fillMaxWidth()
+//            .padding(10.dp),
+//            Arrangement.spacedBy(6.dp)
+//        )
+//        {
+//            Button(
+//                modifier = Modifier
+//                    .weight(1f),
+//                onClick = {
+//                    userVM.uploadUsers(mockUsers = mockUsers)
+//                }
+//            ) {
+//                Text("user upload et")
+//            }
+//        }

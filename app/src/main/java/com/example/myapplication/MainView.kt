@@ -24,12 +24,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.data.bottomNavItems
 import com.example.myapplication.screens.GamePage
 import com.example.myapplication.screens.HomeScreen
 import com.example.myapplication.screens.Profil
 import com.example.myapplication.screens.Settings
-import com.example.myapplication.screens.SettingsTabsScreens.AccountPage
-import com.example.myapplication.data.bottomNavItems
+import com.example.myapplication.screens.mainMenuScreens.AllGames
+import com.example.myapplication.screens.mainMenuScreens.Category
+import com.example.myapplication.screens.mainMenuScreens.NewReleases
+import com.example.myapplication.screens.mainMenuScreens.UpcomingGames
 import com.example.myapplication.ui.theme.AppbarRenk
 import com.example.myapplication.ui.theme.YaziRenk
 
@@ -111,7 +114,7 @@ fun MainView(
             {
                 NavHost(
                     navController = navController,
-                    startDestination = "test_route",
+                    startDestination = "home_route",
                     contentAlignment = Alignment.Center,
                     modifier = Modifier.wrapContentSize(),
                 )
@@ -119,9 +122,11 @@ fun MainView(
                     composable("game_route") { GamePage() }
                     composable("settings_route") { Settings(navController) }
                     composable("home_route") { HomeScreen() }
-                    composable("test_route") { HomeScreen() }
                     composable("profile_route") { Profil() }
-                    composable("account_route") { AccountPage() }
+                    composable("AllGames_Route") { AllGames() }
+                    composable("GameCategory_Route") { Category() }
+                    composable("NewReleases_Route") { NewReleases() }
+                    composable("Settings_route") { Settings(navController) }
                 }
             }
         }

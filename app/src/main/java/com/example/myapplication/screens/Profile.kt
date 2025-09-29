@@ -51,7 +51,7 @@ import com.example.myapplication.data.UserAllGamesList
 import com.example.myapplication.data.profileFilterButtonsDataList
 import com.example.myapplication.widget.proflieSections.ProfileFilterButton
 
-const val userGamePerRow=2
+val userGamePerRow=2
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Profil(userVm: user_VM = viewModel())
