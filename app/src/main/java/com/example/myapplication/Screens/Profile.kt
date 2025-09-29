@@ -57,7 +57,7 @@ const val userGamePerRow=2
 fun Profil(userVm: User_VM= viewModel())
 {
     val userList by userVm.users.collectAsState()
-    val activeUser = userList.getOrNull(0)
+    val activeUser = userList.getOrNull(1)
     Column(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
@@ -128,7 +128,7 @@ fun Profil(userVm: User_VM= viewModel())
                     Spacer(Modifier.width(4.dp))
                     if (activeUser!=null) {
                         Text(
-                            text = "Oynanan oyunlar: ${activeUser.profileGamesPlayed}",
+                            text = "Oynanan oyunlar: ${activeUser.profileGamesPlayed.size}",
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

@@ -7,140 +7,112 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.MainView
-import com.example.myapplication.data.GameDataModel
-import com.example.myapplication.data.GameRepository
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication.VM.Game_VM
+import com.example.myapplication.VM.User_VM
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(repository: GameRepository = GameRepository()) {
-    var games by remember { mutableStateOf<List<GameDataModel>>(emptyList()) }
-
-    LaunchedEffect(Unit) {
-        repository.getGames { fetchedGames ->
-            games = fetchedGames
-        }
-    }
-    val playedGameInRow = games.chunked(userGamePerRow)
-    LazyColumn(
+fun HomeScreen(
+    gameVM: Game_VM = viewModel(),
+    userVM: User_VM= viewModel()
+) {
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+    val mockgames by gameVM.games.collectAsState()
+    val mockUsers by userVM.users.collectAsState()
+    Column(modifier = Modifier) {
+        LazyRow(
         modifier = Modifier
+            //.weight(1f)
             .padding(8.dp)
-            .fillMaxSize(),
+            .fillMaxWidth()
+            .wrapContentHeight(),
         state = rememberLazyListState(),
         reverseLayout = false,
-        verticalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
         flingBehavior = ScrollableDefaults.flingBehavior(),
         userScrollEnabled = true
-    )
-    {
-        items(playedGameInRow) { profileGameItem ->
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                profileGameItem.forEach { profileGame ->
-
-                    Column(
-                        modifier = Modifier
-                            .weight(1f)
-                            .wrapContentHeight()
-                    )
-                    {
+        ){
+            items(mockgames) { profileGameItem ->
+                Column(
+                    modifier = Modifier
+                        //.weight(1f)
+                    ){
                         Box(modifier = Modifier
-                            .fillMaxWidth()
-                            .height(150.dp)
+                            .height(screenHeight/3)
+                            .width(screenWidth/2)
                             .border(3.dp, Color.Black)
                             .background(color = MaterialTheme.colorScheme.secondary)
                         )
-                        Text(text = profileGame.gameName)
+                        Text(
+                            modifier = Modifier.padding(start = 12.dp),
+                            text = profileGameItem.gameName)
                     }
-                    if (profileGameItem.size%2 != 0){
-                        Spacer(modifier = Modifier.weight(1f))
-                    }
-
+            }
+        }
+        Row(Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+            Arrangement.spacedBy(6.dp)
+        )
+        {
+            Button(
+                modifier = Modifier
+                    .weight(1f),
+                onClick = {
+                    gameVM.uploadMockData(mockgames)
                 }
+            ) {
+                Text("oyun upload et")
+            }
+            Button(
+                modifier = Modifier
+                        .weight(1f),
+                onClick = {
+                    gameVM.clean()
+                }
+            ) {
+                Text("sil")
+            }
+            Button(
+                modifier = Modifier
+                    .weight(1f),
+                onClick = {
+                    userVM.uploadUsers(mockUsers = mockUsers)
+                }
+            ) {
+                Text("user upload et")
             }
         }
     }
-//    LazyColumn(
-//        modifier = Modifier
-//            .padding(8.dp)
-//            .fillMaxSize(),
-//        state = rememberLazyListState(),
-//        reverseLayout = false,
-//        verticalArrangement = Arrangement.spacedBy(20.dp),
-//        flingBehavior = ScrollableDefaults.flingBehavior(),
-//        userScrollEnabled = true
-//    ) {
-//        items(playedGameInRow) { gamelist ->
-//            Row(
-//                Modifier
-//                    .fillMaxWidth(),
-//                //.padding(horizontal = 3.dp),
-//                horizontalArrangement = Arrangement.spacedBy(4.dp),
-//            ) {
-//                Column(
-//                    modifier = Modifier
-//                        .weight(1f)
-//                        .wrapContentHeight()
-//                ) {
-//                    Box(
-//                        modifier = Modifier
-//                            .padding(3.dp)
-//                            .fillMaxWidth()
-//                            .height(150.dp)
-//                            .clip(MaterialTheme.shapes.medium)
-//                            .border(3.dp, Color.Black)
-//                            .background(color = MaterialTheme.colorScheme.secondary)
-//                    ) {
-//                        Text(
-//                            text = gamelist.gameName,
-//                            modifier = Modifier
-//                                .padding(5.dp)
-//                                .align(Alignment.Center),
-//                            Color.White,
-//                            textAlign = TextAlign.Center,
-//                            style = MaterialTheme.typography.bodyLarge
-//                        )
-//                    }
-//                    Row(
-//                        modifier = Modifier
-//                            .padding(top = 8.dp)
-//                    ) {
-//                        Text(text = gamelist.gameName)
-//                    }
-//                }
-//            }
-//        }
-//    }
+
 }
 
 @Preview
 @Composable
-fun HomeScreenPreview() {
-    MainView()
+fun HomeScreentestPreview() {
+    HomeScreen()
 }
 //fun unitCallback() {
 //    val listener: () -> Unit = {
