@@ -5,7 +5,7 @@ data class mainMenuButtons(
     val route: String,
 )
 val AllButtonList = listOf<mainMenuButtons>(
-    mainMenuButtons("Tüm Oyunlar","AllGames_Route"),
+    mainMenuButtons("Tüm Oyunlar","AllGames_Route",),
     mainMenuButtons("Kategoriler","GameCategory_Route"),
     mainMenuButtons("Yeni Çıkanlar","NewReleases_Route"),
     mainMenuButtons("Gelecek Oyunlar","Upcoming_Route")

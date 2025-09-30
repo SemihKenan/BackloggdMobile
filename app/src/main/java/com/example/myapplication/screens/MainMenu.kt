@@ -31,105 +31,67 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.VM.Game_VM
 import com.example.myapplication.VM.user_VM
 import com.example.myapplication.data.AllButtonList
-import com.example.myapplication.data.mainMenuButtons
-import kotlin.collections.chunked
+import com.example.myapplication.data.rememberScreenSize
+import com.example.myapplication.ui.theme.MyApplicationTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     gameVM: Game_VM = viewModel(),
-    userVM: user_VM= viewModel()
+    userVM: user_VM = viewModel()
 ) {
-    val windowInfo = LocalWindowInfo.current
-    val screenSize = windowInfo.containerSize
-    val screenWidthPx = screenSize.width
-    val screenHeightPx = screenSize.height
-    val density = LocalDensity.current
-    val screenWidthDp = with(density){screenWidthPx.toDp()}
-    val screenHeightDp = with(density){screenHeightPx.toDp()}
+    val screen = rememberScreenSize()
+    val localWidth = screen.width
+    val localHeight= screen.height
     val mockgames by gameVM.games.collectAsState()
     val mockUsers by userVM.users.collectAsState()
     Column(modifier = Modifier) {
         LazyRow(
-        modifier = Modifier
-            //.weight(1f)
-            .padding(8.dp)
-            .fillMaxWidth()
-            .wrapContentHeight(),
-        state = rememberLazyListState(),
-        reverseLayout = false,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-        flingBehavior = ScrollableDefaults.flingBehavior(),
-        userScrollEnabled = true
-        ){
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            state = rememberLazyListState(),
+            reverseLayout = false,
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            flingBehavior = ScrollableDefaults.flingBehavior(),
+            userScrollEnabled = true
+        ) {
             items(mockgames) { GameItems ->
                 Column(
                     modifier = Modifier
-                    ){
-                        Box(modifier = Modifier
-                            .height(screenHeightDp/4)
-                            .width(screenWidthDp/2)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .height(localHeight / 4)
+                            .width(localWidth / 2)
                             .border(3.dp, Color.Black)
                             .background(color = MaterialTheme.colorScheme.secondary)
-                        )
-                        Text(
-                            modifier = Modifier.padding(start = 12.dp),
-                            text = GameItems.gameName)
-                    }
+                    )
+                    Text(
+                        modifier = Modifier.padding(start = 12.dp),
+                        text = GameItems.gameName
+                    )
+                }
             }
         }
-    }
-    Column {
-        AllButtonList.forEach { Buttonitem->
-            Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
-            Arrangement.spacedBy(6.dp)) {
-                Text(Buttonitem.Text)
+        val mainMenuButtonsperRow = AllButtonList.chunked(userGamePerRow)
+        mainMenuButtonsperRow.forEach { rowItem ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                Arrangement.spacedBy(6.dp)
+            ) {
+                rowItem.forEach { buttonItem ->
+                    Button(
+                        modifier = Modifier.weight(1f),
+                        onClick = { buttonItem.route })
+                    {
+                        Text(buttonItem.Text)
+                    }
+                }
             }
         }
     }
 }
-
-
-//Row(Modifier
-//            .fillMaxWidth()
-//            .padding(10.dp),
-//            Arrangement.spacedBy(6.dp)
-//        )
-//        {
-//            Button(
-//                modifier = Modifier
-//                    .weight(1f),
-//                onClick = {
-//                    gameVM.uploadMockData(mockgames)
-//                }
-//            ) {
-//                Text("oyun upload et")
-//            }
-//            Button(
-//                modifier = Modifier
-//                        .weight(1f),
-//                onClick = {
-//                    gameVM.clean()
-//                }
-//            ) {
-//                Text("sil")
-//            }
-//        }
-//        Row(Modifier
-//            .fillMaxWidth()
-//            .padding(10.dp),
-//            Arrangement.spacedBy(6.dp)
-//        )
-//        {
-//            Button(
-//                modifier = Modifier
-//                    .weight(1f),
-//                onClick = {
-//                    userVM.uploadUsers(mockUsers = mockUsers)
-//                }
-//            ) {
-//                Text("user upload et")
-//            }
-//        }

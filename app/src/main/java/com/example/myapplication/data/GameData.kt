@@ -37,7 +37,7 @@ val UserAllGamesList=listOf(
 )
 
 val RecentlyPlayedGames=listOf(
-    GameDataModel("1",listOf("p1","p2"),"CyberPunk",null,"Action"),
+    GameDataModel("1",listOf("p1","p2"),"bu recently CyberPunk",null,"Action"),
     GameDataModel("2",listOf("p1"),"Batman Arkham Knight",null,"Action"),
     GameDataModel("3",listOf("p1","p2"),"Zelda BOTW",null,"Action"),
     GameDataModel("4",listOf("p1","p2"),"Hollow Knight",null,"Souls Like"),

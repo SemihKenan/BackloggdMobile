@@ -1,6 +1,7 @@
 package com.example.myapplication.VM
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.data.GameDataModel
 import com.example.myapplication.data.Firabase.GameRepository
 import kotlinx.coroutines.flow.MutableStateFlow

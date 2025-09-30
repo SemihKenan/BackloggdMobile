@@ -29,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,19 +47,32 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
 import com.example.myapplication.VM.user_VM
 import com.example.myapplication.data.ProfileFilter
-import com.example.myapplication.data.RecentlyPlayedGames
-import com.example.myapplication.data.UserAllGamesList
 import com.example.myapplication.data.profileFilterButtonsDataList
 import com.example.myapplication.widget.proflieSections.ProfileFilterButton
 
-val userGamePerRow=2
+const val userGamePerRow=2
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Profil(userVm: user_VM = viewModel())
+fun Profil(
+    userVm: user_VM = viewModel(),
+    profileId: String
+    )
 {
+
     val userList by userVm.users.collectAsState()
-    val activeUser = userList.getOrNull(1)
+    val games by userVm.repogames.collectAsState()
+    val activeUser = userList.firstOrNull()
+    val loaded = remember { mutableStateOf(false) }
+    LaunchedEffect(profileId) {
+            userVm.loadUserWithGames(profileId)
+            loaded.value = true
+    }
     if (activeUser!=null) {
+        var currentSelectedFilter by remember { mutableStateOf(ProfileFilter.AllGames) }
+
+
         Column(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background)
@@ -143,9 +157,8 @@ fun Profil(userVm: user_VM = viewModel())
 
                     }
                 }
-
             }
-            var currentSelectedFilter by remember { mutableStateOf(ProfileFilter.AllGames) }
+
             //Filter Buttons
             Row(Modifier
                 .fillMaxWidth()
@@ -159,23 +172,10 @@ fun Profil(userVm: user_VM = viewModel())
                         isSelected = currentSelectedFilter==buttonData.filterType,
                         onClick = {
                             currentSelectedFilter = buttonData.filterType
-
                         }
                     )
                 }
             }
-            val gamesList = when (currentSelectedFilter) {
-                ProfileFilter.AllGames -> {
-                    UserAllGamesList
-                }
-                ProfileFilter.Favorites -> {
-                    UserAllGamesList
-                }
-                ProfileFilter.RecentlyPlayed -> {
-                    RecentlyPlayedGames
-                }
-            }
-            val playedGameInRow = gamesList.chunked(userGamePerRow)
             LazyColumn(
                 modifier = Modifier
                     .padding(8.dp)
@@ -187,44 +187,52 @@ fun Profil(userVm: user_VM = viewModel())
                 userScrollEnabled = true
             )
             {
-                items(playedGameInRow) { profileGameItem ->
+                val filteredGames =
+                    when (currentSelectedFilter) {
+                        ProfileFilter.AllGames -> games
+                        ProfileFilter.Favorites -> games.filter { it.id in (activeUser?.profilfavPlayed ?: emptyList()) }
+                        ProfileFilter.RecentlyPlayed -> games.filter { it.id in (activeUser?.profileRecentlyPlayed ?: emptyList()) }
+                    }
+                val playedGameinRow = filteredGames.chunked(userGamePerRow)
+                items(playedGameinRow) { playedGamesItem ->
                     Row(
                         Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        profileGameItem.forEach { profileGame ->
-
+                        filteredGames.forEach { chunkedGames -> //chunka almıyor profilde gözükmüyor, eğer kullanılmazsa sorunsuz çalışıyor.
                             Column(
                                 modifier = Modifier
                                     .weight(1f)
                                     .wrapContentHeight()
                             )
                             {
-                                Box(modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(150.dp)
-                                    .border(3.dp, Color.Black)
-                                    .background(color = MaterialTheme.colorScheme.secondary)
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(150.dp)
+                                        .border(3.dp, Color.Black)
+                                        .background(color = MaterialTheme.colorScheme.secondary)
                                 )
-                                Text(text = profileGame.gameName)
+                                Text(text = chunkedGames.gameName)
                             }
-                            if (profileGameItem.size%2 != 0){
+                        }
+                            if (filteredGames.size % 2 != 0) {
                                 Spacer(modifier = Modifier.weight(1f))
                             }
-
                         }
                     }
                 }
             }
 
         }
-    }
     else{
         Text("Kullanıcı Bulunamadı",
             fontWeight = FontWeight.Bold,
         )
     }
 }
+
+
 
 
 

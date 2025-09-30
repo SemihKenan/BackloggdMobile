@@ -8,15 +8,16 @@ class UserRepository{
     private val userCollection= db.collection("Users")
     private val batch = db.batch()
 
-    fun getUsers(onResult: (List<UserList>) -> Unit) {
-        userCollection
+    fun getUser(profileId: String, onResult: (UserList?) -> Unit) {
+        db.collection("Users")
+            .whereEqualTo("profileId", profileId)
             .get()
-            .addOnSuccessListener { result ->
-                val Users = result.toObjects(UserList::class.java)
-                onResult(Users)
+            .addOnSuccessListener { snapshot ->
+                val user = snapshot.toObjects(UserList::class.java).firstOrNull()
+                onResult(user)
             }
             .addOnFailureListener {
-                onResult(emptyList())
+                onResult(null)
             }
     }
 

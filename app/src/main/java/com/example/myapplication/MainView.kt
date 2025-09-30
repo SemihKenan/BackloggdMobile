@@ -24,15 +24,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.data.Constants
 import com.example.myapplication.data.bottomNavItems
 import com.example.myapplication.screens.GamePage
 import com.example.myapplication.screens.HomeScreen
 import com.example.myapplication.screens.Profil
 import com.example.myapplication.screens.Settings
-import com.example.myapplication.screens.mainMenuScreens.AllGames
-import com.example.myapplication.screens.mainMenuScreens.Category
-import com.example.myapplication.screens.mainMenuScreens.NewReleases
-import com.example.myapplication.screens.mainMenuScreens.UpcomingGames
+import com.example.myapplication.screens.SettingsTabsScreens.Notifications
 import com.example.myapplication.ui.theme.AppbarRenk
 import com.example.myapplication.ui.theme.YaziRenk
 
@@ -122,11 +120,8 @@ fun MainView(
                     composable("game_route") { GamePage() }
                     composable("settings_route") { Settings(navController) }
                     composable("home_route") { HomeScreen() }
-                    composable("profile_route") { Profil() }
-                    composable("AllGames_Route") { AllGames() }
-                    composable("GameCategory_Route") { Category() }
-                    composable("NewReleases_Route") { NewReleases() }
-                    composable("Settings_route") { Settings(navController) }
+                    composable("profile_route") { Profil(profileId = Constants.activeprofileId) }
+                    composable("notifications_route") { Notifications() }
                 }
             }
         }

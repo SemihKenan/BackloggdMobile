@@ -1,29 +1,39 @@
 package com.example.myapplication.data
 
-data class UserList(
-    val profileId: String = "",
-    val profilename: String = "",
-    val profileImage: String?=null,
-    val profileGamesPlayed: List<String> = emptyList(),
-    val profileReviewedGames: String?=null
-)
+object Constants {
+    const val activeprofileId = "p2"}
 
-val userProfile= listOf<UserList>(
-    UserList(
-    "p1",
-    "Username127",
-    null,
-    listOf("g1","g2","g4","g7","g8","g9"),
-    "5"
-),
-    UserList(
-        "p2",
-        "Username712",
-        null,
-        listOf("g3","g6","g4","g2","g8","g9","g1"),
-        "3"
+    data class UserList(
+        val profileId: String = "",
+        val profilename: String = "",
+        val profileImage: String? = null,
+        val profileGamesPlayed: List<String> = emptyList(),
+        val profileRecentlyPlayed: List<String> = emptyList(),
+        val profilfavPlayed: List<String> = emptyList(),
+        val profileReviewedGames: String? = null
     )
-)
+
+    val userProfile = listOf<UserList>(
+        UserList(
+            "p1",
+            "Username127",
+            null,
+            listOf("1", "2", "4", "7", "8", "9"),
+            listOf("1", "7", "8"),
+            listOf("7", "8", "9"),
+            "5"
+        ),
+        UserList(
+            "p2",
+            "Username712",
+            null,
+            listOf("3", "6", "3", "2", "8", "9", "1"),
+            listOf("3", "2", "1"),
+            listOf("8", "9", "1"),
+            "3"
+        )
+    )
+
 //val activeUser = userProfile[1]
 
 //val playedGames: Int = activeUser.profileGamesPlayed.size

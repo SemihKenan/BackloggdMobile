@@ -13,6 +13,6 @@ data class BottomNavItem(
 )
 val bottomNavItems = listOf(
     BottomNavItem("Profile", Icons.Default.Person, "profile_route"),
-    BottomNavItem("Home", Icons.Default.Home, "test_route"),
+    BottomNavItem("Home", Icons.Default.Home, "home_route"),
     BottomNavItem("Settings", Icons.Default.Settings, "settings_route")
 )

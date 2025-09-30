@@ -50,9 +50,3 @@ fun ProfileFilterButton(
         Text(text, fontSize = 13.sp)
     }
 }
-
-@Preview
-@Composable
-private fun profil() {
-    Profil()
-}

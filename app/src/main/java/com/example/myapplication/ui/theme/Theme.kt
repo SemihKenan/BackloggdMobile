@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
@@ -64,6 +66,13 @@ fun MyApplicationTheme(
             WindowCompat.getInsetsController(window, statusbarrenk).isAppearanceLightStatusBars = darkTheme
         }
     }
+    val windowInfo = LocalWindowInfo.current
+    val screenSize = windowInfo.containerSize
+    val screenWidthPx = screenSize.width
+    val screenHeightPx = screenSize.height
+    val density = LocalDensity.current
+    val screenWidthDp = with(density) { screenWidthPx.toDp() }
+    val screenHeightDp = with(density) { screenHeightPx.toDp() }
 
     MaterialTheme(
         colorScheme = colorScheme,
