@@ -1,7 +1,6 @@
 package com.example.myapplication.VM
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.data.GameDataModel
 import com.example.myapplication.data.Firabase.GameRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,20 +19,5 @@ class Game_VM: ViewModel() {
         repo.getGames { list ->
             _games.value=list
         }
-    }
-    fun uploadMockData(mockGames: List<GameDataModel>) {
-        repo.pushGames(mockGames)
-        { success->
-            loadGames()
-        }
-    }
-    fun deleteduplicate(){
-        repo.removeDuplicates { success->
-            loadGames()
-        }
-        }
-    fun clean(){
-        repo.clearGameListCollection { success->
-            loadGames() }
     }
 }

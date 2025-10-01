@@ -14,7 +14,7 @@ class user_VM: ViewModel() {
     private val _users = MutableStateFlow<List<UserList?>>(emptyList())
     val users: StateFlow< List<UserList?>> = _users
     private val _games = MutableStateFlow<List<GameDataModel>>(emptyList())
-    val repogames: StateFlow<List<GameDataModel>> = _games
+    val repogames: MutableStateFlow<List<GameDataModel>> = _games
 
     init {
         loadUsers(Constants.activeprofileId)

@@ -58,18 +58,18 @@ const val userGamePerRow=2
 fun Profil(
     userVm: user_VM = viewModel(),
     profileId: String
-    )
-{
+    ) {
 
     val userList by userVm.users.collectAsState()
     val games by userVm.repogames.collectAsState()
     val activeUser = userList.firstOrNull()
     val loaded = remember { mutableStateOf(false) }
+    
     LaunchedEffect(profileId) {
-            userVm.loadUserWithGames(profileId)
-            loaded.value = true
+        userVm.loadUserWithGames(profileId)
+        loaded.value = true
     }
-    if (activeUser!=null) {
+    if (activeUser != null) {
         var currentSelectedFilter by remember { mutableStateOf(ProfileFilter.AllGames) }
 
 
@@ -77,8 +77,8 @@ fun Profil(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background)
                 .fillMaxSize()
-        ){
-        //User Profile Section
+        ) {
+            //User Profile Section
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -119,14 +119,14 @@ fun Profil(
                     modifier = Modifier.weight(1f)
                 )
                 {
-                        Text(
-                            text = activeUser.profilename,
-                            style = MaterialTheme.typography.headlineSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            fontWeight = FontWeight.Bold
-                        )
+                    Text(
+                        text = activeUser.profilename,
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontWeight = FontWeight.Bold
+                    )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Row(verticalAlignment =Alignment.CenterVertically ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         Spacer(
                             modifier = Modifier.width(4.dp)
                         )
@@ -138,44 +138,62 @@ fun Profil(
                             tint = MaterialTheme.colorScheme.primary
                         )
                         Spacer(Modifier.width(4.dp))
-                            Text(
-                                text = "Oynanan oyunlar: ${activeUser.profileGamesPlayed.size}",
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
+                        Text(
+                            text = "Oynanan oyunlar: ${activeUser.profileGamesPlayed.size}",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
 
                     }
                     Spacer(modifier = Modifier.height(4.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Outlined.Create, contentDescription = "Yapılan Yorumlar", tint = MaterialTheme.colorScheme.secondary)
+                        Icon(
+                            Icons.Outlined.Create,
+                            contentDescription = "Yapılan Yorumlar",
+                            tint = MaterialTheme.colorScheme.secondary
+                        )
                         Spacer(modifier = Modifier.width(4.dp))
-                            Text(
-                                text = "Yorum Sayısı: ${activeUser.profileReviewedGames}",
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
+                        Text(
+                            text = "Yorum Sayısı: ${activeUser.profileReviewedGames}",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
 
                     }
                 }
             }
 
             //Filter Buttons
-            Row(Modifier
-                .fillMaxWidth()
-                .padding(),
-                horizontalArrangement = Arrangement.SpaceEvenly) {
-                profileFilterButtonsDataList.forEach {buttonData ->
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                profileFilterButtonsDataList.forEach { buttonData ->
 
                     ProfileFilterButton(
                         text = buttonData.text,
                         icon = buttonData.icon,
-                        isSelected = currentSelectedFilter==buttonData.filterType,
+                        isSelected = currentSelectedFilter == buttonData.filterType,
                         onClick = {
                             currentSelectedFilter = buttonData.filterType
                         }
                     )
                 }
             }
+            var filteredGames =
+                when (currentSelectedFilter) {
+                    ProfileFilter.AllGames -> games
+                    ProfileFilter.Favorites -> games.filter {
+                        it.id in (activeUser?.profilfavPlayed ?: emptyList())
+                    }
+
+                    ProfileFilter.RecentlyPlayed -> games.filter {
+                        it.id in (activeUser?.profileRecentlyPlayed ?: emptyList())
+                    }
+                }
+            val chunkedList = filteredGames.chunked(2)
             LazyColumn(
                 modifier = Modifier
                     .padding(8.dp)
@@ -187,19 +205,13 @@ fun Profil(
                 userScrollEnabled = true
             )
             {
-                val filteredGames =
-                    when (currentSelectedFilter) {
-                        ProfileFilter.AllGames -> games
-                        ProfileFilter.Favorites -> games.filter { it.id in (activeUser?.profilfavPlayed ?: emptyList()) }
-                        ProfileFilter.RecentlyPlayed -> games.filter { it.id in (activeUser?.profileRecentlyPlayed ?: emptyList()) }
-                    }
-                val playedGameinRow = filteredGames.chunked(userGamePerRow)
-                items(playedGameinRow) { playedGamesItem ->
+
+                items(chunkedList) { playedGamesItem ->
                     Row(
                         Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        filteredGames.forEach { chunkedGames -> //chunka almıyor profilde gözükmüyor, eğer kullanılmazsa sorunsuz çalışıyor.
+                        playedGamesItem.forEach {
                             Column(
                                 modifier = Modifier
                                     .weight(1f)
@@ -213,16 +225,16 @@ fun Profil(
                                         .border(3.dp, Color.Black)
                                         .background(color = MaterialTheme.colorScheme.secondary)
                                 )
-                                Text(text = chunkedGames.gameName)
+                                Text(text = it.gameName)
                             }
                         }
-                            if (filteredGames.size % 2 != 0) {
+                            if (playedGamesItem.size % 2 != 0) {
                                 Spacer(modifier = Modifier.weight(1f))
                             }
-                        }
                     }
                 }
             }
+        }
 
         }
     else{
@@ -230,7 +242,7 @@ fun Profil(
             fontWeight = FontWeight.Bold,
         )
     }
-}
+    }
 
 
 
