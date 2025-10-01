@@ -28,8 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.myapplication.VM.Game_VM
-import com.example.myapplication.VM.User_VM
+import com.example.myapplication.viewmodel.Game_VM
+import com.example.myapplication.viewmodel.User_VM
 import com.example.myapplication.data.mainMenuButtonList
 import com.example.myapplication.data.rememberScreenSize
 

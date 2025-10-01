@@ -1,4 +1,4 @@
-package com.example.myapplication.VM
+package com.example.myapplication.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.Constants

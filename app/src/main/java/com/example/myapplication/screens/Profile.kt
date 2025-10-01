@@ -45,7 +45,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
-import com.example.myapplication.VM.User_VM
+import com.example.myapplication.viewmodel.User_VM
 import com.example.myapplication.data.ProfileFilter
 import com.example.myapplication.data.profileFilterButtonsDataList
 import com.example.myapplication.utils.profliesections.ProfileFilterButton
