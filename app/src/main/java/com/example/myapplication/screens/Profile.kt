@@ -45,18 +45,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
-import com.example.myapplication.VM.user_VM
+import com.example.myapplication.VM.User_VM
 import com.example.myapplication.data.ProfileFilter
 import com.example.myapplication.data.profileFilterButtonsDataList
-import com.example.myapplication.widget.proflieSections.ProfileFilterButton
+import com.example.myapplication.utils.profliesections.ProfileFilterButton
 
 const val userGamePerRow=2
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Profil(
-    userVm: user_VM = viewModel(),
+fun Profile(
+    userVm: User_VM = viewModel(),
     profileId: String
     ) {
 

@@ -19,5 +19,5 @@ class Game_VM: ViewModel() {
         repo.getGames { list ->
             _games.value=list
         }
-    }
+    }//shared vm   camelcase
 }

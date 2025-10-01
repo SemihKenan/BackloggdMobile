@@ -1,7 +1,7 @@
 package com.example.myapplication.data.Firabase
 
 import com.example.myapplication.data.GameDataModel
-import com.example.myapplication.data.UserList
+import com.example.myapplication.data.ProfileDataModel
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -23,14 +23,14 @@ class GameRepository {
     fun getUserGames(
         profileId:String,
         onResult: (
-            List<UserList>,
+            List<ProfileDataModel>,
             List<GameDataModel>)-> Unit
     ){
         userCollection
             .whereEqualTo("profileId",profileId)
             .get()
             .addOnSuccessListener { userResult ->
-                val listUser = userResult.toObjects(UserList::class.java)
+                val listUser = userResult.toObjects(ProfileDataModel::class.java)
 
                 if (listUser != null){
                     gameCollection.whereArrayContains("ownerid",profileId)
@@ -55,7 +55,6 @@ class GameRepository {
             onResult(emptyList())
             return
         }
-
         gameCollection
             .whereIn("id", gameIds)
             .get()

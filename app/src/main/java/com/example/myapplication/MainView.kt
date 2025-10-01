@@ -25,12 +25,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.data.Constants
-import com.example.myapplication.data.bottomNavItems
-import com.example.myapplication.screens.GamePage
+import com.example.myapplication.data.bottomNavItemsList
+import com.example.myapplication.screens.GameScreen
 import com.example.myapplication.screens.HomeScreen
-import com.example.myapplication.screens.Profil
-import com.example.myapplication.screens.Settings
-import com.example.myapplication.screens.SettingsTabsScreens.Notifications
+import com.example.myapplication.screens.Profile
+import com.example.myapplication.screens.SettingsScreen
+import com.example.myapplication.screens.SettingsTabsScreens.notificationPage
 import com.example.myapplication.ui.theme.AppbarRenk
 import com.example.myapplication.ui.theme.YaziRenk
 
@@ -48,11 +48,11 @@ fun MainView(
         topBar = {
             TopAppBar(
                 {
-                    val currentItem = bottomNavItems.find { it.route == currentRoute?.route }
+                    val currentItem = bottomNavItemsList.find { it.route == currentRoute?.route }
                     Text(currentItem?.title ?: "Başlık Yok")
                 },
                 navigationIcon = {
-                    if (navController.previousBackStackEntry != null && bottomNavItems.none
+                    if (navController.previousBackStackEntry != null && bottomNavItemsList.none
                         { it.route == currentRoute?.route }
                     ) {
                         IconButton(
@@ -76,7 +76,7 @@ fun MainView(
         },
         bottomBar = {
             BottomAppBar {
-                bottomNavItems.forEach { screen ->
+                bottomNavItemsList.forEach { screen ->
                     val selected = currentRoute?.route == screen.route ||
                             currentRoute?.parent?.route == screen.route
                     IconButton(
@@ -117,11 +117,11 @@ fun MainView(
                     modifier = Modifier.wrapContentSize(),
                 )
                 {
-                    composable("game_route") { GamePage() }
-                    composable("settings_route") { Settings(navController) }
-                    composable("home_route") { HomeScreen() }
-                    composable("profile_route") { Profil(profileId = Constants.activeprofileId) }
-                    composable("notifications_route") { Notifications() }
+                    composable("game_route"){GameScreen(navController)}
+                    composable("settings_route") { SettingsScreen(navController) }
+                    composable("home_route") { HomeScreen(navController) }
+                    composable("profile_route") { Profile(profileId = Constants.activeProfileId) }
+                    composable("notifications_route") { notificationPage() }
                 }
             }
         }

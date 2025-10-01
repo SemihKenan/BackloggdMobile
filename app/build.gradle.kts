@@ -2,6 +2,7 @@
 plugins {
     id("com.google.gms.google-services")
     id("com.android.application")
+    id("kotlin-parcelize")
     //alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)

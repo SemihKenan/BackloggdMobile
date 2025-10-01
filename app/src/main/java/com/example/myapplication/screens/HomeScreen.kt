@@ -2,6 +2,7 @@ package com.example.myapplication.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,27 +25,25 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.myapplication.VM.Game_VM
-import com.example.myapplication.VM.user_VM
-import com.example.myapplication.data.AllButtonList
+import com.example.myapplication.VM.User_VM
+import com.example.myapplication.data.mainMenuButtonList
 import com.example.myapplication.data.rememberScreenSize
-import com.example.myapplication.ui.theme.MyApplicationTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    navController: NavController,
     gameVM: Game_VM = viewModel(),
-    userVM: user_VM = viewModel()
+    userVM: User_VM = viewModel()
 ) {
     val screen = rememberScreenSize()
     val localWidth = screen.width
     val localHeight= screen.height
     val mockgames by gameVM.games.collectAsState()
-    val mockUsers by userVM.users.collectAsState()
     Column(modifier = Modifier) {
         LazyRow(
             modifier = Modifier
@@ -57,7 +56,7 @@ fun HomeScreen(
             flingBehavior = ScrollableDefaults.flingBehavior(),
             userScrollEnabled = true
         ) {
-            items(mockgames) { GameItems ->
+            items(mockgames) { gameItem ->
                 Column(
                     modifier = Modifier
                 ) {
@@ -67,15 +66,19 @@ fun HomeScreen(
                             .width(localWidth / 2)
                             .border(3.dp, Color.Black)
                             .background(color = MaterialTheme.colorScheme.secondary)
+                            .clickable(true){
+                                navController.currentBackStackEntry?.savedStateHandle?.set("gameItem", gameItem)
+                                navController.navigate("game_route")
+                            }
                     )
                     Text(
                         modifier = Modifier.padding(start = 12.dp),
-                        text = GameItems.gameName
+                        text = gameItem.gameName
                     )
                 }
             }
         }
-        val mainMenuButtonsperRow = AllButtonList.chunked(userGamePerRow)
+        val mainMenuButtonsperRow = mainMenuButtonList.chunked(userGamePerRow)
         mainMenuButtonsperRow.forEach { rowItem ->
             Row(
                 modifier = Modifier

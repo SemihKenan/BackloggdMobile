@@ -1,9 +1,9 @@
 package com.example.myapplication.data
 
 object Constants {
-    const val activeprofileId = "p2"}
+    const val activeProfileId = "p2"}
 
-    data class UserList(
+    data class ProfileDataModel(
         val profileId: String = "",
         val profilename: String = "",
         val profileImage: String? = null,
@@ -13,8 +13,8 @@ object Constants {
         val profileReviewedGames: String? = null
     )
 
-    val userProfile = listOf<UserList>(
-        UserList(
+    val userProfile = listOf<ProfileDataModel>(
+        ProfileDataModel(
             "p1",
             "Username127",
             null,
@@ -23,7 +23,7 @@ object Constants {
             listOf("7", "8", "9"),
             "5"
         ),
-        UserList(
+        ProfileDataModel(
             "p2",
             "Username712",
             null,

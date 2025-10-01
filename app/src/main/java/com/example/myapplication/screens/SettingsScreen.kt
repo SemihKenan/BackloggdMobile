@@ -13,14 +13,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.data.allSettingSection
 
 @Composable
-fun Settings(navController: NavController) {
+fun SettingsScreen(navController: NavController) {
     Scaffold(
         content = { paddingValues ->
             LazyColumn(
@@ -82,8 +80,3 @@ fun Settings(navController: NavController) {
     )
 }
 
-@Preview
-@Composable
-private fun SettingsPreview() {
-    Settings(navController = rememberNavController())
-}

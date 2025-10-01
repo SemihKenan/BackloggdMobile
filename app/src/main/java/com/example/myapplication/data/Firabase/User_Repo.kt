@@ -1,5 +1,5 @@
 package com.example.myapplication.data.Firabase
-import com.example.myapplication.data.UserList
+import com.example.myapplication.data.ProfileDataModel
 import com.example.myapplication.data.userProfile
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -8,12 +8,12 @@ class UserRepository{
     private val userCollection= db.collection("Users")
     private val batch = db.batch()
 
-    fun getUser(profileId: String, onResult: (UserList?) -> Unit) {
+    fun getUser(profileId: String, onResult: (ProfileDataModel?) -> Unit) {
         db.collection("Users")
             .whereEqualTo("profileId", profileId)
             .get()
             .addOnSuccessListener { snapshot ->
-                val user = snapshot.toObjects(UserList::class.java).firstOrNull()
+                val user = snapshot.toObjects(ProfileDataModel::class.java).firstOrNull()
                 onResult(user)
             }
             .addOnFailureListener {
@@ -23,7 +23,7 @@ class UserRepository{
 
 
 
-    fun uploadUsers(onResult: List<UserList>, onComplete: (Boolean) -> Unit){
+    fun uploadUsers(onResult: List<ProfileDataModel>, onComplete: (Boolean) -> Unit){
         userProfile.forEach { dbUsers ->
             val docRef= userCollection.document(dbUsers.profileId)
             batch.set(docRef,dbUsers)

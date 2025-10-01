@@ -1,5 +1,9 @@
 package com.example.myapplication.data
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class GameDataModel(
     val id: String = "",
     val ownerid: List<String> = emptyList(),
@@ -7,7 +11,7 @@ data class GameDataModel(
     val imageUrl: String? = null,
     val genre: String = "",
     val reviewDate: String?=null,
-)
+) : Parcelable
 
 //val playedGames: Int = activeUser.profileOwnerId.size
 val AllGamesList=listOf(

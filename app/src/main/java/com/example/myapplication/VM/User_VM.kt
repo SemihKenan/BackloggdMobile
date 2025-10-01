@@ -5,19 +5,19 @@ import com.example.myapplication.data.Constants
 import com.example.myapplication.data.Firabase.GameRepository
 import com.example.myapplication.data.Firabase.UserRepository
 import com.example.myapplication.data.GameDataModel
-import com.example.myapplication.data.UserList
+import com.example.myapplication.data.ProfileDataModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-class user_VM: ViewModel() {
+class User_VM : ViewModel() {
     private val repo= UserRepository()
     private val gameRepo = GameRepository()
-    private val _users = MutableStateFlow<List<UserList?>>(emptyList())
-    val users: StateFlow< List<UserList?>> = _users
+    private val _users = MutableStateFlow<List<ProfileDataModel?>>(emptyList())
+    val users: StateFlow< List<ProfileDataModel?>> = _users
     private val _games = MutableStateFlow<List<GameDataModel>>(emptyList())
     val repogames: MutableStateFlow<List<GameDataModel>> = _games
 
     init {
-        loadUsers(Constants.activeprofileId)
+        loadUsers(Constants.activeProfileId)
     }
     fun loadUsers(profileId: String) {
         repo.getUser(profileId) { loadUser ->

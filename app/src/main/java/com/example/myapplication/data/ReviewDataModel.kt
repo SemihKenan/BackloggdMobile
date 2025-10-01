@@ -2,7 +2,7 @@ package com.example.myapplication.data
 
 import kotlin.String
 
-data class CommentedGame(
+data class ReviewDataModel(
     val id: String,
     val commentOwnerId: String? = null,
     val commentGameName: String,
@@ -13,22 +13,22 @@ data class CommentedGame(
 fun ReviewDate(gameName: String): String? {return AllGamesList.find { it.gameName == gameName }?.reviewDate}
 
 
-val AlreadyCommented=listOf<CommentedGame>(
-    CommentedGame(
+val AlreadyCommented=listOf<ReviewDataModel>(
+    ReviewDataModel(
         id = "c1",
         commentOwnerId = null,
         commentGameName = "CyberPunk",
         commentText = "Great game!",
         date = ReviewDate("CyberPunk")?:"Tarih yok"
     ),
-    CommentedGame(
+    ReviewDataModel(
         id = "c2",
         commentOwnerId = null,
         commentGameName = "Satisfactory",
         commentText = "Amazing graphics.",
         date = ReviewDate("Satisfactory")?:"Tarih yok"
     ),
-    CommentedGame(
+    ReviewDataModel(
         id = "c3",
         commentOwnerId = null,
         commentGameName = "Baldur's Gate",

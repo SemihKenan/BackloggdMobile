@@ -5,41 +5,41 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.unit.Dp
 
-data class SettingItems(
+data class SettingsItemDataModel(
     val title: String,
     val route: String? = null
 )
 
 data class SettingSection(
     val sectionTitle: String,
-    val options: List<SettingItems>
+    val options: List<SettingsItemDataModel>
 )
 
 val allSettingSection = listOf(
     SettingSection(
         "General",
         listOf(
-            SettingItems("Notifications","notifications_route"),
-            SettingItems("Account"),
-            SettingItems("Privacy")
+            SettingsItemDataModel("Notifications","notifications_route"),
+            SettingsItemDataModel("Account"),
+            SettingsItemDataModel("Privacy")
         )
 
     ),
     SettingSection(
         "Notifications",
         listOf(
-            SettingItems("Game Notifications"),
-            SettingItems("Social Notifications"),
-            SettingItems("Other Notifications")
+            SettingsItemDataModel("Game Notifications"),
+            SettingsItemDataModel("Social Notifications"),
+            SettingsItemDataModel("Other Notifications")
         )
     ),
     SettingSection(
         "Account & Privacy",
         listOf(
-            SettingItems("Profile Privacy"),
-            SettingItems("Account Info"),
-            SettingItems("Change Password"),
-            SettingItems("Theme"),
+            SettingsItemDataModel("Profile Privacy"),
+            SettingsItemDataModel("Account Info"),
+            SettingsItemDataModel("Change Password"),
+            SettingsItemDataModel("Theme"),
 
             )
     ),
