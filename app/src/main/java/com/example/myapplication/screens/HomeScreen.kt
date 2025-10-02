@@ -21,13 +21,16 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.myapplication.data.Firabase.GameRepository
 import com.example.myapplication.viewmodel.Game_VM
 import com.example.myapplication.viewmodel.User_VM
 import com.example.myapplication.data.mainMenuButtonList
@@ -38,12 +41,14 @@ import com.example.myapplication.data.rememberScreenSize
 fun HomeScreen(
     navController: NavController,
     gameVM: Game_VM = viewModel(),
-    userVM: User_VM = viewModel()
+    userVM: User_VM = viewModel(),
+
 ) {
     val screen = rememberScreenSize()
     val localWidth = screen.width
     val localHeight= screen.height
     val mockgames by gameVM.games.collectAsState()
+
     Column(modifier = Modifier) {
         LazyRow(
             modifier = Modifier

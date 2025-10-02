@@ -1,8 +1,11 @@
 package com.example.myapplication.data.Firabase
 
+import android.util.Log
 import com.example.myapplication.data.GameDataModel
 import com.example.myapplication.data.ProfileDataModel
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 
 class GameRepository {
@@ -20,33 +23,35 @@ class GameRepository {
                 onResult(emptyList())
             }
     }
+
     fun getUserGames(
-        profileId:String,
+        profileId: String,
         onResult: (
             List<ProfileDataModel>,
-            List<GameDataModel>)-> Unit
-    ){
+            List<GameDataModel>
+        ) -> Unit
+    ) {
         userCollection
-            .whereEqualTo("profileId",profileId)
+            .whereEqualTo("profileId", profileId)
             .get()
             .addOnSuccessListener { userResult ->
                 val listUser = userResult.toObjects(ProfileDataModel::class.java)
 
-                if (listUser != null){
-                    gameCollection.whereArrayContains("ownerid",profileId)
+                if (listUser != null) {
+                    gameCollection.whereArrayContains("ownerid", profileId)
                         .get()
                         .addOnSuccessListener { result ->
                             val userGames = result.toObjects(GameDataModel::class.java)
-                            onResult(listUser,userGames)
+                            onResult(listUser, userGames)
                         }
-                        .addOnFailureListener { onResult(listUser,emptyList()) }
-                }
-                else{
-                    onResult(emptyList(),emptyList())
+                        .addOnFailureListener { onResult(listUser, emptyList()) }
+                } else {
+                    onResult(emptyList(), emptyList())
                 }
             }
-            .addOnFailureListener { onResult(emptyList(),emptyList()) }
+            .addOnFailureListener { onResult(emptyList(), emptyList()) }
     }
+
     fun getGamesByIds(
         gameIds: List<String>,
         onResult: (List<GameDataModel>) -> Unit
@@ -66,6 +71,7 @@ class GameRepository {
                 onResult(emptyList())
             }
     }
+
 }
 
 

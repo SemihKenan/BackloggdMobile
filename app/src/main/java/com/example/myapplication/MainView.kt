@@ -25,6 +25,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.data.Constants
+import com.example.myapplication.data.Firabase.GameRepository
 import com.example.myapplication.data.bottomNavItemsList
 import com.example.myapplication.screens.GameScreen
 import com.example.myapplication.screens.HomeScreen

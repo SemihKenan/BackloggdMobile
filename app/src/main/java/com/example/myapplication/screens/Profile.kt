@@ -64,7 +64,6 @@ fun Profile(
     val games by userVm.repogames.collectAsState()
     val activeUser = userList.firstOrNull()
     val loaded = remember { mutableStateOf(false) }
-    
     LaunchedEffect(profileId) {
         userVm.loadUserWithGames(profileId)
         loaded.value = true

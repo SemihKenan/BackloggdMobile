@@ -1,5 +1,7 @@
 package com.example.myapplication.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.GameDataModel
 import com.example.myapplication.data.Firabase.GameRepository
@@ -12,6 +14,8 @@ class Game_VM: ViewModel() {
     private val repo = GameRepository()
     private val _games = MutableStateFlow<List<GameDataModel>>(emptyList())
     val games: StateFlow<List<GameDataModel>> =_games
+    private val _migrationState = MutableLiveData<String>()
+    val migrationState: LiveData<String> = _migrationState
     init {
         loadGames()
     }
