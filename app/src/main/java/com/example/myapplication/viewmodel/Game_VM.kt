@@ -13,9 +13,8 @@ class Game_VM: ViewModel() {
     
     private val repo = GameRepository()
     private val _games = MutableStateFlow<List<GameDataModel>>(emptyList())
+    private val _inGameImages = MutableStateFlow<List<GameDataModel>>(emptyList())
     val games: StateFlow<List<GameDataModel>> =_games
-    private val _migrationState = MutableLiveData<String>()
-    val migrationState: LiveData<String> = _migrationState
     init {
         loadGames()
     }
